@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>crom.app</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <div class="logo_login">
+  <img style="text-align:center;width:300px;" src="../../../assets/img/logo_gescare.png">
+</div> -->
+
+<!-- <ion-content class="ion-padding">
+  <form (ngSubmit)="login()" [formGroup]="credentials">
+    <ion-item fill="solid" class="ion-margin-bottom">
+      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "invalid_email" | translate }}</ion-note>
+    </ion-item>
+    <ion-item fill="solid" class="ion-margin-bottom">
+      <ion-input  [type]="getPasswordType()" placeholder="Password" formControlName="password"></ion-input>
+      <ion-icon slot="end" (click)="this.changePasswordVisibility()" [name]="this.isPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
+      <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "min_length_passw" | translate }}</ion-note>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
+
+<br/>
+
+    <span class="" style="text-align: center; display: block; margin-bottom: 20px;">
+      {{ "doesnt_remember_passw" | translate }}
+      <a [routerLink]="['/reset-passw']">{{ "reset_it" | translate }}</a>
+    </span>
+
+    <span class="" style="text-align: center; display: block;">
+      {{ "doesnt_have_account" | translate }}
+      <a [routerLink]="['/register']">{{ "register" | translate }}</a>
+    </span>
+  </form>
+  <div style="text-align:center; margin-top: 10px;">
+    <ion-icon name="globe-outline"></ion-icon>
+    <select #selectedLang (change)="switchLang(selectedLang.value)" style="align-self: right; margin-left: 8px;margin-right: 8px;">
+      <option *ngFor="let language of langs"
+        [value]="language"
+        [selected]="language === currentLang">
+        {{ language }}
+      </option>
+    </select>
+    <ion-label (click)="abrirLinkLocalPage('policy');">
+      {{ "more_politica_privacidad" | translate }}
+    </ion-label>
+  </div>
+
+  <div style="text-align:center;padding-top:10px;padding-bottom:10px;">{{ finVersion }}</div>
+  <div style="text-align:center;padding-bottom:10px;">{{ knowPlatform }}</div>
+
+</ion-content> -->
