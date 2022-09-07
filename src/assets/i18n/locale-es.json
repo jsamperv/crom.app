@@ -1,0 +1,11 @@
+{
+  "LOGIN": {
+    "invalid_email": "Email inválido"
+    , "min_length_passw": "El password tiene que tener como mínimo 6 carácteres"
+    , "doesnt_remember_passw": "Has olvidado el password?"
+    , "reset_it": "Reinicializalo"
+    , "doesnt_have_account": "Aún no tienes cuenta?"
+    , "register": "Regístrate"
+    , "privacy_policy": "Política Privacidad"
+  }
+}

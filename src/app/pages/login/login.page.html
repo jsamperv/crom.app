@@ -8,47 +8,51 @@
   <img style="text-align:center;width:300px;" src="../../../assets/img/logo_gescare.png">
 </div> -->
 
-<!-- <ion-content class="ion-padding">
-  <form (ngSubmit)="login()" [formGroup]="credentials">
+<ion-content class="ion-padding">
+  <form (ngSubmit)="login()" [formGroup]="loginCredentials">
     <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "invalid_email" | translate }}</ion-note>
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-input type="email" inputmode="email" autocomplete="email" placeholder="Email" formControlName="email"></ion-input>
+      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "LOGIN.invalid_email" | translate }}</ion-note>
     </ion-item>
     <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input  [type]="getPasswordType()" placeholder="Password" formControlName="password"></ion-input>
+      <ion-icon slot="start" name="lock-open-outline"></ion-icon>
+      <ion-input  [type]="this.isPasswordVisible ? 'text' : 'password'" placeholder="Password" formControlName="password"></ion-input>
       <ion-icon slot="end" (click)="this.changePasswordVisibility()" [name]="this.isPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
       <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "min_length_passw" | translate }}</ion-note>
     </ion-item>
+        
+    <ion-button type="submit" expand="block" clickable>Log in</ion-button>    
+   
+    <br/>
 
-    <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
-
-<br/>
+     <span class="" style="text-align: center; display: block; margin-bottom: 10px;">
+      {{ "LOGIN.doesnt_remember_passw" | translate }}
+      <a [routerLink]="['/reset-passw']">{{ "LOGIN.reset_it" | translate }}</a>
+    </span>
 
     <span class="" style="text-align: center; display: block; margin-bottom: 20px;">
-      {{ "doesnt_remember_passw" | translate }}
-      <a [routerLink]="['/reset-passw']">{{ "reset_it" | translate }}</a>
+      {{ "LOGIN.doesnt_have_account" | translate }}
+      <a [routerLink]="['/register']">{{ "LOGIN.register" | translate }}</a>
     </span>
 
-    <span class="" style="text-align: center; display: block;">
-      {{ "doesnt_have_account" | translate }}
-      <a [routerLink]="['/register']">{{ "register" | translate }}</a>
-    </span>
-  </form>
-  <div style="text-align:center; margin-top: 10px;">
-    <ion-icon name="globe-outline"></ion-icon>
-    <select #selectedLang (change)="switchLang(selectedLang.value)" style="align-self: right; margin-left: 8px;margin-right: 8px;">
-      <option *ngFor="let language of langs"
-        [value]="language"
-        [selected]="language === currentLang">
-        {{ language }}
-      </option>
-    </select>
-    <ion-label (click)="abrirLinkLocalPage('policy');">
-      {{ "more_politica_privacidad" | translate }}
-    </ion-label>
-  </div>
+    </form>  
 
-  <div style="text-align:center;padding-top:10px;padding-bottom:10px;">{{ finVersion }}</div>
-  <div style="text-align:center;padding-bottom:10px;">{{ knowPlatform }}</div>
+    <div style="text-align:center; margin-top: 10px;">
+      <ion-icon name="globe-outline"></ion-icon>
+      <select #selectedLang (change)="switchLang(selectedLang.value)" style="align-self: right; margin-left: 8px;margin-right: 8px;">
+        <option *ngFor="let language of langs"
+          [value]="language"
+          [selected]="language === currentLang">
+          {{ language }}
+        </option>
+      </select>
+      <ion-label (click)="null">
+        {{ "LOGIN.privacy_policy" | translate }}
+      </ion-label>
+    </div>
 
-</ion-content> -->
+  <!-- <div style="text-align:center;padding-top:10px;padding-bottom:10px;">{{ finVersion }}</div>
+  <div style="text-align:center;padding-bottom:10px;">{{ knowPlatform }}</div> --> 
+
+</ion-content>

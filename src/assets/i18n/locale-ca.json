@@ -1,0 +1,11 @@
+{
+  "LOGIN": {
+    "invalid_email": "Email invàlid."
+    , "min_length_passw": "El password ha de tenir com a mínim 6 caràcters."
+    , "doesnt_remember_passw": "Has oblidat el password?"
+    , "reset_it": "Reinicialitza'l"      
+    , "doesnt_have_account": "Encara no tens compte?"
+    , "register": "Registra't"
+    , "privacy_policy": "Política Privadesa"
+  }
+}
