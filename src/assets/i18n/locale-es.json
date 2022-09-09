@@ -7,5 +7,10 @@
     , "doesnt_have_account": "Aún no tienes cuenta?"
     , "register": "Regístrate"
     , "privacy_policy": "Política Privacidad"
+    , "login_error": "Error en el Login"
+    , "user_not_found": "Usuario no encontrado."
+    , "incorrect_passw": "Password incorrecto."
+    , "ok": "de acuerdo"
+    , "unable_to_load_user_settings": "No se han podido cargar les preferencias de usuario."
   }
 }

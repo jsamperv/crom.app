@@ -19,7 +19,7 @@
       <ion-icon slot="start" name="lock-open-outline"></ion-icon>
       <ion-input  [type]="this.isPasswordVisible ? 'text' : 'password'" placeholder="Password" formControlName="password"></ion-input>
       <ion-icon slot="end" (click)="this.changePasswordVisibility()" [name]="this.isPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
-      <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "min_length_passw" | translate }}</ion-note>
+      <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "LOGIN.min_length_passw" | translate }}</ion-note>
     </ion-item>
         
     <ion-button type="submit" expand="block" clickable>Log in</ion-button>    

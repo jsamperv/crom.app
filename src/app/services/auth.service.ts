@@ -4,7 +4,7 @@ import { Auth,
          signInWithEmailAndPassword,
          signOut                     } from '@angular/fire/auth';
 import { FirebaseError               } from 'firebase/app';
-import { devlog                      } from  'src/app/shared/sharedFunctions';
+import { GlobalService               } from 'src/app/services/global.service';
 
 // INTERFACES
 
@@ -18,25 +18,27 @@ export class AuthService {
 
   // CONSTRUCTOR
   constructor(private auth: Auth) {
-    devlog('auth.service: constructor()');
+    GlobalService.devlog('auth.service: constructor()');
   }
 
   // PROPERTIES
 
   // FUNCTIONS
+  // login()
   async login(email: string, password: string) {
-    devlog('auth.service: login()');
+    GlobalService.devlog('auth.service: login()');
     try {
       const userCr = await signInWithEmailAndPassword(this.auth, email, password);
       return userCr;
     } catch (e) {
-      devlog(`e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
       throw e;
     }
   }
 
+  // logout()
   async logout() {
-    devlog('auth.service: logout()');
+    GlobalService.devlog('auth.service: logout()');
     return await signOut(this.auth);
   }
 }
