@@ -1,16 +1,26 @@
 {
   "LOGIN": {
-    "invalid_email": "Email inválido"
-    , "min_length_passw": "El password tiene que tener como mínimo 6 carácteres"
-    , "doesnt_remember_passw": "Has olvidado el password?"
-    , "reset_it": "Reinicializalo"
-    , "doesnt_have_account": "Aún no tienes cuenta?"
-    , "register": "Regístrate"
-    , "privacy_policy": "Política Privacidad"
-    , "login_error": "Error en el Login"
-    , "user_not_found": "Usuario no encontrado."
-    , "incorrect_passw": "Password incorrecto."
-    , "ok": "de acuerdo"
-    , "unable_to_load_user_settings": "No se han podido cargar les preferencias de usuario."
+    "invalid_email": "Email inválido",
+    "min_length_passw": "El password tiene que tener como mínimo 6 carácteres",
+    "doesnt_remember_passw": "Has olvidado el password?",
+    "reset_it": "Reinicializalo",
+    "doesnt_have_account": "Aún no tienes cuenta?",
+    "register": "Regístrate",
+    "privacy_policy": "Política Privacidad",
+    "login_error": "Error en el Login",
+    "user_not_found": "Usuario no encontrado.",
+    "incorrect_passw": "Password incorrecto.",
+    "ok": "de acuerdo",
+    "unable_to_load_user_settings": "No se han podido cargar les preferencias de usuario."
+  },
+  "LIBRARY": {
+    "library": "Libreria",
+    "return": "Devuelve",
+    "lend": "Presta"
+  },
+  "LIBRARY_ITEM_CATEGORY": {
+    "boardgame": "Juego de mesa",
+    "roleplay": "Juego de rol",
+    "book": "Libro"
   }
 }

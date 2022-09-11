@@ -41,6 +41,7 @@ There is nothing implemented for now.
 - Aplying visualization filters (free, reserved, ...) and categories (boardgame,  
 book, roleplaying, ...) to the list of items. 
 - Aplying ordered lists to the list of items.
+- Detailed view for an item.
 
 ## Sources && Inspiration
 [Node Javascript](https://nodejs.org)  

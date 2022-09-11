@@ -1,4 +1,4 @@
-// IMPORT
+// IMPORTS
 import { Component,
          OnInit            } from '@angular/core';
 import { FormBuilder,
@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
   // VARIABLES
   private fgLoginCredentials: FormGroup;
   private bIsPasswordVisible: boolean;
+  private sEmailString: string;
 
   // CONSTRUCTOR
   constructor(
@@ -44,12 +45,15 @@ export class LoginPage implements OnInit {
   get isPasswordVisible() { return this.bIsPasswordVisible; }
   get langs()             { return this.translate.getLangs(); }
   get currentLang()       { return this.translate.currentLang; }
+  get emailString()       { return this.sEmailString; }
 
   // NGONINIT
   ngOnInit() {
     GlobalService.devlog('login: ngOnInit()');
 
     this.bIsPasswordVisible = false;
+    this.sEmailString =
+      'mailto:cromrolesa@gmail.com?Subject=CROM.APP registre &body= Siusplau, registreu-me a la app, amb el correu: XXX@XXX.XXX';
 
     // Form Group Inicialization
     this.fgLoginCredentials =

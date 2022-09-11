@@ -22,6 +22,7 @@ export class AuthService {
   }
 
   // PROPERTIES
+  get userId(): string { return this.auth.currentUser.uid; }
 
   // FUNCTIONS
   // login()

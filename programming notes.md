@@ -14,6 +14,8 @@ You will be asked a series of questions, in this project for now we need:
 - Authentication
 - Firestore
 
+https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md
+
 ## Internationalization library @ngx-translate
 
 http://www.ngx-translate.com/
@@ -57,6 +59,14 @@ export function createTranslateLoader(http: HttpClient) {
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+```
+In app.component.ts:
+
+``` typescript
+ // NGONINIT
+  ngOnInit() {
+    this.translate.addLangs(['ca', 'es']);
+  }
 ```
 
 
