@@ -4,6 +4,7 @@ import { Component,
 import { GlobalService  } from 'src/app/services/global.service';
 import { LibraryService } from 'src/app/services/library.service';
 import { AuthService    } from 'src/app/services/auth.service';
+import { LibraryItem } from 'src/app/interfaces/LibraryItem';
 // CLASS
 @Component({
   selector: 'app-library',
@@ -30,15 +31,19 @@ export class LibraryPage implements OnInit {
   }
 
   // FUNCTIONS
-  lendItem(name: string) {
-    GlobalService.devlog('library: lend()');
-    this.libraryService.lendItem(name);
+  lendItem(libraryItem: LibraryItem) {
+    GlobalService.devlog('library: lendItem()');
+    this.libraryService.lendItem(libraryItem, this.authService.userId);
+  }
+
+  returnItem(libraryItem: LibraryItem) {
+    GlobalService.devlog('library: returnItem()');
+    this.libraryService.returnItem(libraryItem);
   }
 
   // AUXILIAR FUNCTIONS
   getItemsColor(isLended: boolean=false): string { if (isLended) { return 'warning'; } return ''; }
   canIReturnItem(isLended: boolean=false, userId: string=''): boolean {
-    GlobalService.devlog(userId);
     if (isLended && userId === this.authService.userId) { return true; }
     return false;
   }

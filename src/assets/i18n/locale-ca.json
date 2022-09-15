@@ -14,13 +14,30 @@
     "unable_to_load_user_settings": "No s'han pogut carregar les preferències d'usuari."
   },
   "LIBRARY": {
-    "library": "Llibreria",
+    "library": "Biblioteca",
     "return": "Retorna",
-    "lend": "Presta"
+    "lend": "Presta",
+    "out_of_lend": "Exclòs de prèstec.",
+    "lended_since": "En prèstec des del"
   },
   "LIBRARY_ITEM_CATEGORY": {
     "boardgame": "Joc de taula",
     "roleplay": "Joc de rol",
     "book": "Llibre"
+  },
+  "TABS": {
+    "library": "Biblioteca",
+    "more": "Més"
+  },
+  "RESET_PASSW": {
+    "reset_passw_howto": "Introdueix email per a reinicialitzar el password; Revisa el teu correu.",
+    "invalid_email": "Email invàlid.",
+    "reset_passw": "Renicialitza el password",
+    "return_to_login": "Retorna al login",
+    "reset_passw_begins": "Reinicialització iniciada",
+    "reset_passw_sent": "Email enviat; Revisa el teu correu",
+    "reset_passw_error": "Error en la reinicialització del password",
+    "user_not_found": "Usuari no trobat",
+    "ok": "d'acord"
   }
 }

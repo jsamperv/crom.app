@@ -1,19 +1,19 @@
-import { IonicModule           } from '@ionic/angular';
 import { NgModule              } from '@angular/core';
 import { CommonModule          } from '@angular/common';
 import { FormsModule           } from '@angular/forms';
-import { TabsPageRoutingModule } from './tabs-routing.module';
-import { TabsPage              } from './tabs.page';
+import { IonicModule           } from '@ionic/angular';
+import { MorePageRoutingModule } from './more-routing.module';
+import { MorePage              } from './more.page';
 import { TranslateModule       } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
-    IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule,
+    IonicModule,
+    MorePageRoutingModule,
     TranslateModule
   ],
-  declarations: [TabsPage]
+  declarations: [MorePage]
 })
-export class TabsPageModule {}
+export class MorePageModule {}

@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginPage } from './login.page';
+import { MorePage } from './more.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginPage
+    component: MorePage
   },
   {
-    path: 'reset-passw',
-    loadChildren: () => import('../reset-passw/reset-passw.module').then( m => m.ResetPasswPageModule),
+    path: 'user-profile',
+    loadChildren: () => import('../user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LoginPageRoutingModule {}
+export class MorePageRoutingModule {}

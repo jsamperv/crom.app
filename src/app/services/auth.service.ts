@@ -2,6 +2,7 @@
 import { Injectable                  } from '@angular/core';
 import { Auth,
          signInWithEmailAndPassword,
+         sendPasswordResetEmail,
          signOut                     } from '@angular/fire/auth';
 import { FirebaseError               } from 'firebase/app';
 import { GlobalService               } from 'src/app/services/global.service';
@@ -22,7 +23,9 @@ export class AuthService {
   }
 
   // PROPERTIES
-  get userId(): string { return this.auth.currentUser.uid; }
+  get userId(): string      { return this.auth.currentUser.uid; }
+  get displayName(): string { return this.auth.currentUser.displayName; }
+  get email(): string       { return this.auth.currentUser.email; }
 
   // FUNCTIONS
   // login()
@@ -36,6 +39,26 @@ export class AuthService {
       throw e;
     }
   }
+
+  // resetPassw()
+  async resetPassw(email: string) {
+    GlobalService.devlog('auth.service: resetPassw()');
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+  // updateEmail()
+  async updateEmail(email: string) { GlobalService.devlog('auth.service: updateEmail()'); }
+
+  // updateDisplayName()
+  async updateDisplayName(displayName: string) { GlobalService.devlog('auth.service: updateDisplayName()'); }
+
+  // updatePassword()
+  async updatePassword(displayName: string) { GlobalService.devlog('auth.service: updatePassword()'); }
 
   // logout()
   async logout() {

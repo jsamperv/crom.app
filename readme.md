@@ -1,7 +1,7 @@
 # crom.app
 ## Introduction
 Aplication for CROM rol and games club. Initially a library of items where an  
-authenticated user can see the list of games, reserve one or take it home  (TAB1)  
+authenticated user can see as a list, lend one and take it home. (TAB1)  
 
 Also, the user can edit profile: name, email and password; and settings: dark  
 mode, language (es, ca). (TAB2)
@@ -42,6 +42,8 @@ There is nothing implemented for now.
 book, roleplaying, ...) to the list of items. 
 - Aplying ordered lists to the list of items.
 - Detailed view for an item.
+- CRUD for users to easily add new items. Add new role: admin.
+- An inventory of items that are in the club?
 
 ## Sources && Inspiration
 [Node Javascript](https://nodejs.org)  

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/login']">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>crom.app</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <span class="" style="text-align: center; display: block; margin-bottom: 10px;">
+    {{ "RESET_PASSW.reset_passw_howto" | translate }}
+  </span>
+
+  <form [formGroup]="resetPasswCredentials">
+    <ion-item fill="solid" class="ion-margin-bottom">
+      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "RESET_PASSW.invalid_email" | translate }}</ion-note>
+    </ion-item>
+
+    <ion-button type="" (click)="resetPassw()" expand="block">{{ "RESET_PASSW.reset_passw" | translate }}</ion-button>
+  </form>
+
+  <span class="" style="text-align: center; display: block;">
+    <a [routerLink]="['/login']">{{ "RESET_PASSW.return_to_login" | translate }}</a> 
+  </span>
+
+</ion-content>

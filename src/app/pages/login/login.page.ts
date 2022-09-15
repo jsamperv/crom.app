@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
 
     this.bIsPasswordVisible = false;
     this.sEmailString =
-      'mailto:cromrolesa@gmail.com?Subject=CROM.APP registre &body= Siusplau, registreu-me a la app, amb el correu: XXX@XXX.XXX';
+      'mailto:cromrolesa@gmail.com?Subject=CROM.APP registre &body=Siusplau, registreu-me a la app, amb el correu: XXX@XXX.XXX';
 
     // Form Group Inicialization
     this.fgLoginCredentials =

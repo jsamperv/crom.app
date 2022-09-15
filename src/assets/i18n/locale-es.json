@@ -14,13 +14,30 @@
     "unable_to_load_user_settings": "No se han podido cargar les preferencias de usuario."
   },
   "LIBRARY": {
-    "library": "Libreria",
+    "library": "Biblioteca",
     "return": "Devuelve",
-    "lend": "Presta"
+    "lend": "Presta",
+    "out_of_lend": "Fuera de préstamo.",
+    "lended_since": "En préstamo desde el"
   },
   "LIBRARY_ITEM_CATEGORY": {
     "boardgame": "Juego de mesa",
     "roleplay": "Juego de rol",
     "book": "Libro"
+  },
+  "TABS": {
+    "library": "Biblioteca",
+    "more": "Más"
+  },
+  "RESET_PASSW": {
+    "reset_passw_howto": "Introduce email para reinicializar el password; Revisa tu correo.",
+    "invalid_email": "Email inválido",
+    "reset_passw": "Reinicializa el password",
+    "return_to_login": "Retorna al login",    
+    "reset_passw_begins": "Reinicialización iniciada",
+    "reset_passw_sent": "Email enviado; Revisa tu correo",
+    "reset_passw_error": "Error en la reinicialización del password",
+    "user_not_found": "Usuario no encontrado",    
+    "ok": "de acuerdo"
   }
 }

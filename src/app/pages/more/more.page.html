@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      More
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">  
+  <ion-item  (click)="logout()" [routerDirection]="'root'" [routerLink]="'/tabs/tab2'">
+    <ion-icon slot="start" [name]="'log-out'"></ion-icon>
+    <ion-label>
+      {{ "more_cerrar_sesion" | translate }}
+    </ion-label>
+  </ion-item>
+</ion-content>
+
