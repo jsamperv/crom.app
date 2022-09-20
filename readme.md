@@ -3,8 +3,8 @@
 Aplication for CROM rol and games club. Initially a library of items where an  
 authenticated user can see as a list, lend one and take it home. (TAB1)  
 
-Also, the user can edit profile: name, email and password; and settings: dark  
-mode, language (es, ca). (TAB2)
+Also, the user can edit profile: name, email and password; and settings: language  
+(es, ca). (TAB2)
 
 My intention with this application is to integrate my knowledge of javascript  
 technologies into an simple and useful app for a non-profit org.
@@ -35,15 +35,20 @@ run the project and finally compile the project in www and run a server that
 shows the app.
 
 ## Project Status 
-There is nothing implemented for now. 
+The user login is implemented, the minimum application is implemented.  
+A basic library item creation page is implemented for admins is implemented.  
+Basic filtering for category is implemented.  
 
 ## Future improvements
-- Aplying visualization filters (free, reserved, ...) and categories (boardgame,  
-book, roleplaying, ...) to the list of items. 
-- Aplying ordered lists to the list of items.
+- Applying reservations.
+- Aplying more visualization filters (free, reserved, ...) to the list of items. 
+- Aplying ordered lists (not only by name) to the list of items.
 - Detailed view for an item.
-- CRUD for users to easily add new items. Add new role: admin.
-- An inventory of items that are in the club?
+- Lending stats.
+- User recomendations and scoring lists.
+- tag lists and filters.
+- CRUD for admins to easily add or edit items.
+- An inventory of items that are in ALL the club?
 
 ## Sources && Inspiration
 [Node Javascript](https://nodejs.org)  

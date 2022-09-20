@@ -4,14 +4,15 @@ import { Firestore,
          collection,
          collectionData,
          CollectionReference,
-         doc, updateDoc,
+         doc, updateDoc, addDoc,
          query } from '@angular/fire/firestore';
 // import { doc } from '@firebase/Firestore';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { GlobalService } from './global.service';
 import { LibraryItem } from '../interfaces/LibraryItem';
 import { orderBy } from 'firebase/firestore';
+import { FirebaseError               } from 'firebase/app';
 
 // CLASS
 @Injectable({
@@ -21,6 +22,7 @@ export class LibraryService {
 
   // VARIABLES
   private libraryItem$: Observable<LibraryItem[]>;
+  private libraryItem$Unfiltered: Observable<LibraryItem[]>;
   private libraryCollection: CollectionReference;
 
   // CONSTRUCTOR
@@ -29,6 +31,7 @@ export class LibraryService {
     this.libraryCollection = collection(db, 'library');
     const q =  query(this.libraryCollection, orderBy('name'));
     this.libraryItem$ = collectionData(q, {idField: 'id'}) as  Observable<LibraryItem[]>;
+    this.libraryItem$Unfiltered = this.libraryItem$;
     // NO BORRAR ...
     // this.libraryItem$= this.libraryItem$.pipe(
     //   map<LibraryItem[],LibraryItem[]>((data)=>{data.map(d=>{d.name=d.name;}); return data;}));
@@ -39,15 +42,22 @@ export class LibraryService {
     }
 
   // PROPERTIES
-  get getLibraryItem$() { return this.libraryItem$; }
+  get getLibraryItem$() {
+    return this.libraryItem$; // .pipe(share()) as Observable<LibraryItem[]>;
+   }
 
   // FUNCTIONS
   // lendItem()
-  lendItem(libraryItem: LibraryItem, userId: string) {
+  lendItem(libraryItem: LibraryItem, userId: string, displayName: string) {
     GlobalService.devlog(`libraryService: lendItem()`);
-    libraryItem.lended = {status: true, since: Date.now(), userId};
+    libraryItem.lended = {status: true, since: Date.now(), userId, displayName};
     const libraryItemDocumentReference = doc(this.db,`library/${libraryItem.id}`);
-    return updateDoc(libraryItemDocumentReference, { ...libraryItem });
+    try {
+      return updateDoc(libraryItemDocumentReference, { ...libraryItem });
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
   }
 
   // returnItem()
@@ -55,7 +65,30 @@ export class LibraryService {
     GlobalService.devlog(`libraryService: returnItem()`);
     libraryItem.lended = {status: false};
     const libraryItemDocumentReference = doc(this.db,`library/${libraryItem.id}`);
-    return updateDoc(libraryItemDocumentReference, { ...libraryItem });
+    try {
+      return updateDoc(libraryItemDocumentReference, { ...libraryItem });
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+  // filterByCategory()
+  filterByCategory(category: string) {
+    GlobalService.devlog(`libraryService: filterByCategory()`);
+    this.libraryItem$ = this.libraryItem$Unfiltered;
+    this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.category === category)));
+  }
+
+  // createLibraryItem();
+  async createLibraryItem(newLibraryItem: LibraryItem) {
+    GlobalService.devlog(`libraryService: createLibraryItem()`);
+    try {
+      await addDoc(this.libraryCollection, newLibraryItem);
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
   }
 
   // AUXILIAR FUNCTIONS

@@ -33,7 +33,7 @@ export class LibraryPage implements OnInit {
   // FUNCTIONS
   lendItem(libraryItem: LibraryItem) {
     GlobalService.devlog('library: lendItem()');
-    this.libraryService.lendItem(libraryItem, this.authService.userId);
+    this.libraryService.lendItem(libraryItem, this.authService.userId, this.authService.displayName);
   }
 
   returnItem(libraryItem: LibraryItem) {
@@ -47,5 +47,5 @@ export class LibraryPage implements OnInit {
     if (isLended && userId === this.authService.userId) { return true; }
     return false;
   }
-
+  filterByCategory(category: string) { this.libraryService.filterByCategory(category); }
 }

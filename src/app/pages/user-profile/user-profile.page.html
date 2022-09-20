@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">      
-    <ion-title> {{ "my_profile" | translate }} </ion-title>    
+    <ion-title> {{ "USER_PROFILE.my_profile" | translate }} </ion-title>    
     <ion-buttons slot="start">
       <ion-button [routerLink]="['/tabs/tab2']">
         <ion-icon name="arrow-back"></ion-icon> 
@@ -12,28 +12,32 @@
 <ion-content class="ion-padding">
   
   <span class="" style="text-align: center; display: block; margin-bottom: 10px;">
-    {{ "user_profile_howto" | translate }}    
+    {{ "USER_PROFILE.user_profile_howto" | translate }}    
   </span>
-
+ 
   <form  (ngSubmit)="updateProfile()" [formGroup]="userProfile">
     <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-label position="floating"> {{ "email" | translate }} </ion-label>
-      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "invalid_email" | translate }} </ion-note>
+      <ion-icon slot="start" name="mail-outline" slot="start"> </ion-icon>      
+      <ion-input type="email" placeholder="{{ 'USER_PROFILE.type_your_email' | translate }}" formControlName="email"></ion-input>
+      <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> {{ "USER_PROFILE.invalid_email" | translate }} </ion-note>      
     </ion-item>
     <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-label position="floating"> {{ "password" | translate }} </ion-label>
-      <ion-input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="{{ 'type_new_password' | translate }}" ></ion-input>
+      <ion-icon slot="start" name="lock-open-outline" slot="start"></ion-icon>
+      <ion-input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="{{ 'USER_PROFILE.type_new_password' | translate }}" ></ion-input>
       <ion-icon slot="end" (click)="this.changePasswordVisibility()" [name]="this.isPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
-      <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "min_length_passw" | translate }}</ion-note>
+      <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "USER_PROFILE.min_length_passw" | translate }}</ion-note>      
     </ion-item>
     <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-label position="floating"> {{ "display_name" | translate }} </ion-label>
-      <ion-input type="name" placeholder="{{ 'type_your_name' | translate }}" formControlName="name"></ion-input>
-      <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors && name.value.length < 2">{{ "min_length_name" | translate }}</ion-note>
-      <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors">{{ "no_spaces_name" | translate }}</ion-note>
+      <ion-icon name="person-outline" slot="start"></ion-icon>      
+      <ion-input type="name" placeholder="{{ 'USER_PROFILE.type_your_name' | translate }}" formControlName="name"></ion-input>      
+      <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors">{{ "USER_PROFILE.display_name_length_spaces_error" | translate }}</ion-note>      
     </ion-item>
-    <ion-button type="submit" expand="block" [disabled]="!userProfile.valid"> {{ "update_user_profile" | translate }} </ion-button> 
+    <ion-button type="submit" expand="block"> {{ "USER_PROFILE.update_user_profile" | translate }} </ion-button>     
+    
+    <ion-text class="ion-text-center" *ngIf="updatedChanges.email"> <p>{{ "USER_PROFILE.email_updated" | translate}}</p> </ion-text>      
+    <ion-text class="ion-text-center" *ngIf="updatedChanges.password"> <p>{{ "USER_PROFILE.password_updated" | translate}}</p> </ion-text>
+    <ion-text class="ion-text-center"  *ngIf="updatedChanges.displayName"> <p>{{ "USER_PROFILE.display_name_updated" | translate}}</p> </ion-text>
+    
     
   </form>
 

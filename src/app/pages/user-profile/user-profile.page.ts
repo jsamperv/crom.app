@@ -51,7 +51,7 @@ export class UserProfilePage implements OnInit {
     this.bUpdatedChanges = {displayName: false, email: false, password: false};
 
     this.fgUserProfile = this.fb.group({
-      name: [this.authService.displayName ?? '',  [Validators.minLength(2), Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$')]],
+      name: [this.authService.displayName ?? '',  [Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$')]],
       email: [this.authService.email, [Validators.email]],
       password: ['', [Validators.minLength(6)]],
     });
@@ -64,7 +64,7 @@ export class UserProfilePage implements OnInit {
     GlobalService.devlog('user-profile: updateProfile');
     GlobalService.devlog(`  nom: ${this.name.value}\n  password: ${this.password.value}\n  email: ${this.email.value}`);
 
-    if (!this.userProfile.valid) {
+    if (!this.userProfile.valid || this.name.invalid) {
       GlobalService.devlog('  Invalid form.');
       // display errors in the respective <ion-note>
       this.userProfile.markAllAsTouched();

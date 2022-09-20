@@ -39,5 +39,30 @@
     "reset_passw_error": "Error en la reinicialització del password",
     "user_not_found": "Usuari no trobat",
     "ok": "d'acord"
-  }
+  },
+  "MORE": {
+    "more": "Més opcions",
+    "user_profile": "Perfil d'usuari",
+    "user_settings": "Preferències",
+    "language": "Idioma",
+    "close_sesion": "Tancar sessió"
+  },
+  "USER_PROFILE": {
+    "type_your_name": "Escriu el teu nom",
+    "my_profile": "El meu perfil",
+    "user_profile_howto": "Aquest és el teu perfil d'usuari, pots actualitzar qualsevol dels camps (o tots).",
+    "update_user_profile": "Actualitza el meu perfil",
+    "type_new_password": "Escriu un nou password",
+    "invalid_email": "Email invàlid.",
+    "min_length_passw": "El password ha de tenir com a mínim 6 caràcters.",
+    "display_name_length_spaces_error": "El nom no pot tenir espais i com a mínim dos caràcters.",
+    "type_your_email": "Escriu un nou email",
+    "email_updated": "L'Email ha estat actualitzat.",
+    "password_updated": "El Password ha estat actualitzat.",
+    "display_name_updated": "El Nom ha estat actualitzat.",
+    "requires_recent_login": "Fa massa temps de l'últim login, hauries de sortir i tornar entrar",
+    "error": "Error"
+  },
+  "error": "Error",
+  "ok":"d'acord"
 }

@@ -3,7 +3,10 @@ import { Injectable                  } from '@angular/core';
 import { Auth,
          signInWithEmailAndPassword,
          sendPasswordResetEmail,
-         signOut                     } from '@angular/fire/auth';
+         signOut,
+         updateProfile,
+         updatePassword,
+         updateEmail                 } from '@angular/fire/auth';
 import { FirebaseError               } from 'firebase/app';
 import { GlobalService               } from 'src/app/services/global.service';
 
@@ -52,13 +55,37 @@ export class AuthService {
   }
 
   // updateEmail()
-  async updateEmail(email: string) { GlobalService.devlog('auth.service: updateEmail()'); }
+  async updateEmail(newEmail: string) {
+    GlobalService.devlog('auth.service: updateEmail()');
+    try {
+      const res = await updateEmail(this.auth.currentUser, newEmail.toString());
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
 
   // updateDisplayName()
-  async updateDisplayName(displayName: string) { GlobalService.devlog('auth.service: updateDisplayName()'); }
+  async updateDisplayName(newDisplayName: string) {
+    GlobalService.devlog('auth.service: updateDisplayName()');
+    try {
+      const res = await updateProfile(this.auth.currentUser, { displayName: newDisplayName.toString()});
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
 
   // updatePassword()
-  async updatePassword(displayName: string) { GlobalService.devlog('auth.service: updatePassword()'); }
+  async updatePassword(newPassword: string) {
+     GlobalService.devlog('auth.service: updatePassword()');
+     try {
+      const res = await updatePassword(this.auth.currentUser, newPassword.toString());
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
 
   // logout()
   async logout() {

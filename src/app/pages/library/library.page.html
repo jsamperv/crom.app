@@ -5,7 +5,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="boardgameBtn" (click)="filterByCategory('boardgame');">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-boardgame.svg"/></div>
+      </ion-col>
+      <ion-col>
+        <div class="roleplayBtn" (click)="filterByCategory('roleplay');">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-roleplay.svg"/></div>
+      </ion-col>
+      <ion-col>
+        <div class="bookBtn"  (click)="filterByCategory('book');">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-book.svg"/></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item *ngFor="let item of getLibraryService().getLibraryItem$ | async" 
       [color]="this.getItemsColor(item.lended.status)">

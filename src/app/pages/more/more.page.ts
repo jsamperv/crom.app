@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+// IMPORTS
+import { Component,
+         OnInit          } from '@angular/core';
+import { AuthService     } from '../../services/auth.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+// CLASS
 @Component({
   selector: 'app-more',
   templateUrl: './more.page.html',
@@ -8,11 +12,26 @@ import { AuthService } from '../../services/auth.service';
 })
 export class MorePage implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  // VARIABLES
 
+  // CONSTRUCTOR
+  constructor(
+    private authService: AuthService,
+    private translate: TranslateService) { }
+
+  // PROPERTIES
+  get langs()             { return this.translate.getLangs(); }
+  get currentLang()       { return this.translate.currentLang; }
+
+  // NGONINIT
   ngOnInit() {
   }
 
-  logout(){ this.authService.logout();}
+  // FUNCTIONS
+  // logout()
+  logout(){ this.authService.logout(); window.location.assign('/logout');}
 
+  // AUXILIAR FUNCTIOONS
+  switchLang(lang: string)   { this.translate.use(lang); }
+  userIsAdmin() { return true; }
 }

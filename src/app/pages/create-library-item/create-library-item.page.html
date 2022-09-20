@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">      
+    <ion-title> </ion-title>    
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/tabs/tab2']">
+        <ion-icon name="arrow-back"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content class="ion-padding">  
+  
+  <form [formGroup]="libraryItem" (submit)="this.createLibraryItem()">
+    <ion-list>
+      <!-- <ion-item>
+        <ion-label slot="start"><h2>verdures!</h2></ion-label>
+        <ion-select formControlName="selectorVerdures" interface="popover" slot="end">
+          <ion-select-option *ngFor="let verdura of this.getLlistatVerdures" value="{{ verdura.id }}">
+            {{ verdura.id.toString() }} | translate }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <ion-item>
+        <ion-label> Nom </ion-label>
+        <ion-input placeholder="Escriu un nom" formControlName="name"></ion-input>
+        <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors"> Camp necessari. </ion-note>      
+      </ion-item>      
+      <ion-item>        
+        <ion-label> Categoria </ion-label>
+        <ion-select formControlName="category" interface="popover">
+        <ion-select-option>boardgame</ion-select-option>
+        <ion-select-option>roleplay</ion-select-option>
+        <ion-select-option>book</ion-select-option>
+        </ion-select>
+        <ion-note slot="error" *ngIf="(category.dirty || category.touched) && category.errors"> Camp necessari. </ion-note>      
+      </ion-item>      
+      <ion-item>
+        <ion-label> Autor </ion-label>
+        <ion-input placeholder="" formControlName="author"></ion-input>  
+      </ion-item>      
+      <ion-item>
+        <ion-label> Donat per </ion-label>
+        <ion-input placeholder="" formControlName="donatedBy"></ion-input>  
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label> Fora de Prèstec </ion-label>
+        <ion-toggle placeholder="" formControlName="outOfLend"></ion-toggle>        
+      </ion-item>                    
+    </ion-list>
+    <ion-button type="submit" expand="block" clickable> Crea Item </ion-button>    
+  </form>
+
+</ion-content>

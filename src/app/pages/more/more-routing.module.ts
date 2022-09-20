@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'user-profile',
     loadChildren: () => import('../user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   },
+  {
+    path: 'create-library-item',
+    loadChildren: () => import('../create-library-item/create-library-item.module').then( m => m.CreateLibraryItemPageModule)
+  },
 ];
 
 @NgModule({

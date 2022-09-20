@@ -1,16 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-icon name="apps" slot="start" style="padding-left:14px;"></ion-icon>
     <ion-title>
-      More
+      {{ "MORE.more" | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">  
-  <ion-item  (click)="logout()" [routerDirection]="'root'" [routerLink]="'/tabs/tab2'">
+  <ion-item [routerDirection]="'root'" [routerLink]="'user-profile'">
+    <ion-icon slot="start" [name]="'person'"></ion-icon>
+    <ion-label>
+      {{ "MORE.user_profile" | translate }}
+    </ion-label>
+  </ion-item>  
+  <ion-item> <!-- [routerDirection]="'root'" [routerLink]="'settings'"> -->
+    <ion-icon slot="start" [name]="'settings'"></ion-icon>
+    <ion-label>
+      <h2> {{ "MORE.user_settings" | translate }} </h2>
+      <p> {{ "MORE.language" | translate }}
+        <select #selectedLang (change)="switchLang(selectedLang.value)" style="align-self: right; margin-left: 8px;margin-right: 8px;">
+        <option *ngFor="let language of langs"
+          [value]="language"
+          [selected]="language === currentLang">
+          {{ language }}
+        </option>
+      </select></p>
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="userIsAdmin" [routerDirection]="'root'" [routerLink]="'create-library-item'">
+    <ion-icon slot="start" name="add-circle"></ion-icon>
+    <ion-label> Afegir Items a la llibreria </ion-label>
+  </ion-item>
+  <ion-item  (click)="logout()" [routerDirection]="'root'" [routerLink]="''">
     <ion-icon slot="start" [name]="'log-out'"></ion-icon>
     <ion-label>
-      {{ "more_cerrar_sesion" | translate }}
+      {{ "MORE.close_sesion" | translate }}
     </ion-label>
   </ion-item>
 </ion-content>

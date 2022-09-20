@@ -33,11 +33,36 @@
     "reset_passw_howto": "Introduce email para reinicializar el password; Revisa tu correo.",
     "invalid_email": "Email inválido",
     "reset_passw": "Reinicializa el password",
-    "return_to_login": "Retorna al login",    
+    "return_to_login": "Retorna al login",
     "reset_passw_begins": "Reinicialización iniciada",
     "reset_passw_sent": "Email enviado; Revisa tu correo",
     "reset_passw_error": "Error en la reinicialización del password",
-    "user_not_found": "Usuario no encontrado",    
+    "user_not_found": "Usuario no encontrado",
     "ok": "de acuerdo"
-  }
+  },
+  "MORE": {
+    "more": "Más opciones",
+    "user_profile": "Perfil de usuario",
+    "user_settings": "Preferencias",
+    "language": "Idioma",
+    "close_sesion": "Cerrar sesión"
+  },
+  "USER_PROFILE": {
+    "type_your_name": "Escribe tu nombre",
+    "my_profile": "Mi perfil",
+    "user_profile_howto": "Este es tu perfil de usuari, puedes actualizar qualesquiera de los campos (o todos).",
+    "update_user_profile": "Actualiza mi perfil",
+    "type_new_password": "Escribe un nuevo password",
+    "invalid_email": "Email inválido",
+    "min_length_passw": "El password tiene que tener como mínimo 6 carácteres",
+    "display_name_length_spaces_error": "El nombre no puede tener espacios y almenos dos carácteres.",
+    "type_your_email": "Escribe un nuevo email",
+    "email_updated": "El Email ha sido actualitzado.",
+    "password_updated": "El Password ha sido actualitzado.",
+    "display_name_updated": "El Nombre ha sido actualitzado.",
+    "requires_recent_login": "Hace demasiado del último login, deberias salir i volver a entrar",
+    "error": "Error"
+  },
+  "error": "Error",
+  "ok":"de acuerdo"
 }
