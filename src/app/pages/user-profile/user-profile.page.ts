@@ -51,7 +51,7 @@ export class UserProfilePage implements OnInit {
     this.bUpdatedChanges = {displayName: false, email: false, password: false};
 
     this.fgUserProfile = this.fb.group({
-      name: [this.authService.displayName ?? '',  [Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$')]],
+      name: [this.authService.displayName ?? '',  [Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+([ ]*[a-zA-Z0-9])*$')]],
       email: [this.authService.email, [Validators.email]],
       password: ['', [Validators.minLength(6)]],
     });

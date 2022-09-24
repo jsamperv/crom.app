@@ -55,7 +55,7 @@
     "type_new_password": "Escribe un nuevo password",
     "invalid_email": "Email inválido",
     "min_length_passw": "El password tiene que tener como mínimo 6 carácteres",
-    "display_name_length_spaces_error": "El nombre no puede tener espacios y almenos dos carácteres.",
+    "display_name_length_spaces_error": "El nombre debe tener almenos un carácter.",
     "type_your_email": "Escribe un nuevo email",
     "email_updated": "El Email ha sido actualitzado.",
     "password_updated": "El Password ha sido actualitzado.",

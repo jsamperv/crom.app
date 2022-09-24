@@ -27,7 +27,7 @@
       <ion-icon slot="end" (click)="this.changePasswordVisibility()" [name]="this.isPasswordVisible ? 'eye' : 'eye-off'"></ion-icon>
       <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "USER_PROFILE.min_length_passw" | translate }}</ion-note>      
     </ion-item>
-    <ion-item fill="solid" class="ion-margin-bottom">
+    <ion-item fill="solid" class="ion-margin-bottom" [disabled]="name.value.trim().length > 0">
       <ion-icon name="person-outline" slot="start"></ion-icon>      
       <ion-input type="name" placeholder="{{ 'USER_PROFILE.type_your_name' | translate }}" formControlName="name"></ion-input>      
       <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors">{{ "USER_PROFILE.display_name_length_spaces_error" | translate }}</ion-note>      

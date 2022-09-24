@@ -1,8 +1,14 @@
 // IMPORTS
 import { Component,
-         OnInit          } from '@angular/core';
-import { AuthService     } from '../../services/auth.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+         OnInit            } from '@angular/core';
+import { AuthService       } from '../../services/auth.service';
+import { TranslateService  } from '@ngx-translate/core';
+import { UserService       } from 'src/app/services/user.service';
+import { GlobalService     } from 'src/app/services/global.service';
+import { LoadingController } from '@ionic/angular';
+
+// INTERFACE
+interface UserDetails {id: string; role: string; language: string};
 
 // CLASS
 @Component({
@@ -13,18 +19,41 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class MorePage implements OnInit {
 
   // VARIABLES
+  private bIsAdmin: boolean;
 
   // CONSTRUCTOR
   constructor(
     private authService: AuthService,
-    private translate: TranslateService) { }
+    private translate: TranslateService,
+    private userService: UserService,
+    private loadingCtrl: LoadingController) {
+      GlobalService.devlog('MorePage: contructor()');
+    }
 
   // PROPERTIES
-  get langs()             { return this.translate.getLangs(); }
-  get currentLang()       { return this.translate.currentLang; }
+  get langs()           { return this.translate.getLangs(); }
+  get currentLang()     { return this.translate.currentLang; }
+  get getUserService()  { return this.userService; }
+  get getAuthService()  { return this.authService; }
+  get userIsAdmin()     { return this.bIsAdmin; }
 
   // NGONINIT
-  ngOnInit() {
+  async ngOnInit() {
+    GlobalService.devlog('MorePage: ngOnInit()');
+
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    const userSettings = this.userService.getUserById(this.authService.userId)
+      .subscribe((x: UserDetails)=> {
+        GlobalService.devlog(`  User ${this.authService.userId} has ${x.role} role.`);
+        this.bIsAdmin = (x.role === 'admin');
+        // this.translate.use(x.language);
+        // while i dont save language i wont load it
+      });
+
+    await loading.dismiss();
+
   }
 
   // FUNCTIONS
@@ -33,5 +62,5 @@ export class MorePage implements OnInit {
 
   // AUXILIAR FUNCTIOONS
   switchLang(lang: string)   { this.translate.use(lang); }
-  userIsAdmin() { return true; }
+
 }

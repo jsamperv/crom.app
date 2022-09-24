@@ -55,7 +55,7 @@
     "type_new_password": "Escriu un nou password",
     "invalid_email": "Email invàlid.",
     "min_length_passw": "El password ha de tenir com a mínim 6 caràcters.",
-    "display_name_length_spaces_error": "El nom no pot tenir espais i com a mínim dos caràcters.",
+    "display_name_length_spaces_error": "El nom ha de tenir com a mínim un caràcter",
     "type_your_email": "Escriu un nou email",
     "email_updated": "L'Email ha estat actualitzat.",
     "password_updated": "El Password ha estat actualitzat.",

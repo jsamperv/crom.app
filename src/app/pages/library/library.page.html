@@ -23,7 +23,7 @@
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-item *ngFor="let item of getLibraryService().getLibraryItem$ | async" 
+    <ion-item *ngFor="let item of getLibraryService.getLibraryItem$ | async" 
       [color]="this.getItemsColor(item.lended.status)">
       <ion-avatar slot="start">
         <img src="../../../assets/icon/category-{{item.category}}.svg" />  
@@ -32,15 +32,15 @@
         <h2> {{ item.name }} </h2> 
         <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>  
         <p class="author" *ngIf="item.author"> {{ item.author }} </p>
-        <ion-note *ngIf="item.lended.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
+        <ion-note *ngIf="item.lended?.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
         <ion-note *ngIf="item.outOfLend" color="danger"> {{ "LIBRARY.out_of_lend" | translate }} </ion-note>
         <!-- <p> {{ item.lended.userId }} </p> --> 
         <!-- <p> {{ item.id }} </p> -->
     </ion-label>
     <ion-button fill="solid" color="secondary" (click)="this.lendItem(item);" 
-                *ngIf="!item.lended.status && !item.outOfLend" slot="end"> {{ "LIBRARY.lend" | translate }} </ion-button>
+                *ngIf="!item.lended?.status && !item.outOfLend" slot="end"> {{ "LIBRARY.lend" | translate }} </ion-button>
     <ion-button fill="solid" color="secondary" (click)="this.returnItem(item);" 
-                *ngIf="canIReturnItem(item.lended.status, item.lended.userId)" slot="end"> {{ "LIBRARY.return" | translate }} </ion-button>
+                *ngIf="canIReturnItem(item.lended?.status, item.lended.userId)" slot="end"> {{ "LIBRARY.return" | translate }} </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

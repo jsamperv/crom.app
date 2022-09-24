@@ -23,7 +23,7 @@ export class LibraryPage implements OnInit {
   }
 
   // PROPERTIES
-  public getLibraryService() { return this.libraryService; }
+  get getLibraryService() { return this.libraryService; }
 
   // NGONINIT
   ngOnInit() {

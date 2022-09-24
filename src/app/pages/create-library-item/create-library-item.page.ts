@@ -19,6 +19,7 @@ export class CreateLibraryItemPage implements OnInit {
 
   // VARIABLES
   private fgLibraryItem: FormGroup;
+  private bUpdatedChanges: boolean;
   // private llistatVerdures: {id:String}[];
 
   // CONSTRUCTOR
@@ -30,14 +31,17 @@ export class CreateLibraryItemPage implements OnInit {
   }
 
   // PROPERTIES
-  get libraryItem() { return this.fgLibraryItem; }
-  get name()        { return this.fgLibraryItem.get('name'); }
-  get category()    { return this.fgLibraryItem.get('category'); }
+  get libraryItem()    { return this.fgLibraryItem; }
+  get name()           { return this.fgLibraryItem.get('name'); }
+  get category()       { return this.fgLibraryItem.get('category'); }
+  get updatedChanges() { return this.bUpdatedChanges; }
 
   // get getLlistatVerdures() { return this.llistatVerdures }
 
   ngOnInit() {
     GlobalService.devlog('createLibraryItem: ngOnInit()');
+
+    this.bUpdatedChanges = false;
 
     // Inicialitzem Form Group
     this.fgLibraryItem =
@@ -66,6 +70,8 @@ export class CreateLibraryItemPage implements OnInit {
       outOfLend: ${this.fgLibraryItem.get('outOfLend').value}\n      donatedBy: ${this.fgLibraryItem.get('donatedBy').value}
       `);
 
+    this.bUpdatedChanges = false;
+
     if (!this.fgLibraryItem.valid) {
       GlobalService.devlog('  Invalid form.');
       // display errors in the respective <ion-note>
@@ -85,6 +91,7 @@ export class CreateLibraryItemPage implements OnInit {
     try {
       await this.libraryService.createLibraryItem(newLibraryItem);
       await loading.dismiss();
+      this.bUpdatedChanges = true;
     } catch (e) {
       await loading.dismiss();
       this.globalService.showAlert('error', (e as FirebaseError).code);

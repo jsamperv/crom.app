@@ -7,14 +7,6 @@
     {
       "lang": "es",
       "uri": "src/assets/i18n/locale-es.json"
-    },
-    {
-      "lang": "CA",
-      "uri": "src/assets/i18n/locale-ca.json"
-    },
-    {
-      "lang": "ES",
-      "uri": "src/assets/i18n/locale-es.json"
     }
   ]
 }
