@@ -1,4 +1,5 @@
-# crom.app
+# crom.app  
+
 ## Introduction
 Aplication for CROM rol and games club. Initially a library of items where an  
 authenticated user can see as a list, lend one and take it home. (TAB1)  
@@ -36,10 +37,12 @@ shows the app.
 
 ## Project Status 
 The user login is implemented, the minimum application is implemented.  
-A basic library item creation page is implemented for admins is implemented.  
+A basic library item creation page for admins is implemented.  
 Basic filtering for category is implemented.  
+There is an online accessible version of [**crom-app**](https://crom-app.web.app).
 
 ## Future improvements
+- Search bar with automatic filtering view.
 - Applying reservations.
 - Aplying more visualization filters (free, reserved, ...) to the list of items. 
 - Aplying ordered lists (not only by name) to the list of items.
@@ -47,8 +50,11 @@ Basic filtering for category is implemented.
 - Lending stats.
 - User recomendations and scoring lists.
 - tag lists and filters.
-- CRUD for admins to easily add or edit items.
+- CRUD inside library to easily edit items (admins).
 - An inventory of items that are in ALL the club?
+- No connection and possible firestore errors.
+- Whos lending the item in library view (admins).
+- Users CRUD inside the app (admins). Very low priority.
 
 ## Sources && Inspiration
 [Node Javascript](https://nodejs.org)  
@@ -58,7 +64,9 @@ Basic filtering for category is implemented.
 
 [Project Sourcecode](https://github.com/jsamperv/crom.app) on Github
 
-[Simon Grimm's Youtube Channel](https://www.youtube.com/c/SimonGrimmDev) with good ionic tutorials.
+[Simon Grimm's Youtube Channel](https://www.youtube.com/c/SimonGrimmDev) with good ionic tutorials.  
+[Estefania Garcia Gallardo's CRUD tutorial](https://betterprogramming.pub/angular-13-firebase-crud-tutorial-with-angularfire-7-2d6980dcc091) for Angular 14 and Angular Fire 7  
+
 
 ## Contact
 email: jordi.samper@gmail.com

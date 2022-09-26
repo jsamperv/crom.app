@@ -64,5 +64,6 @@
     "error": "Error"
   },
   "error": "Error",
-  "ok":"d'acord"
+  "ok": "d'acord",
+  "version": "versió"
 }

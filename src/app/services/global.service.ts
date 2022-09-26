@@ -15,6 +15,9 @@ export class GlobalService {
       GlobalService.devlog('globalService: constructor()');
   }
 
+  // VARIABLE
+  get version() { return 0.1; };
+
   // FUNCTIONS
   // devlog()
   public static devlog = (message: string) => {

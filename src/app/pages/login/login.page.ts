@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
     private translate: TranslateService,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
-    private globalService: GlobalService,
+    public globalService: GlobalService,
     private router: Router) {
       GlobalService.devlog('login: constructor()');
   }

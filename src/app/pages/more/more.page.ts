@@ -26,7 +26,8 @@ export class MorePage implements OnInit {
     private authService: AuthService,
     private translate: TranslateService,
     private userService: UserService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public globalService: GlobalService) {
       GlobalService.devlog('MorePage: contructor()');
     }
 

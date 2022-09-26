@@ -80,11 +80,12 @@ export class CreateLibraryItemPage implements OnInit {
     }
 
     const newLibraryItem: LibraryItem = {
-      name: this.name.value, category: this.category.value, lended: {status: false},
+      name: this.name.value.trim(), category: this.category.value, lended: {status: false},
       outOfLend: this.fgLibraryItem.get('outOfLend').value};
 
-    if (this.fgLibraryItem.get('author').value.trim() !== '')    { newLibraryItem.author = this.fgLibraryItem.get('author').value; }
-    if (this.fgLibraryItem.get('donatedBy').value.trim() !== '') { newLibraryItem.donatedBy = this.fgLibraryItem.get('donatedBy').value; }
+    if (this.fgLibraryItem.get('author').value.trim() !== '')    { newLibraryItem.author = this.fgLibraryItem.get('author').value.trim(); }
+    if (this.fgLibraryItem.get('donatedBy').value.trim() !== '')
+      { newLibraryItem.donatedBy = this.fgLibraryItem.get('donatedBy').value.trim(); }
 
     const loading = await this.loadingCtrl.create();
     await loading.present();
