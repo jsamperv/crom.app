@@ -8,10 +8,18 @@
 <ion-content fullscreen>
   <ion-grid>
     <ion-row>
+      <!-- <ion-col let....>
+        <div class="{{category}}Btn" (click)="filterByCategory('{{category}}');">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-{{category}}.svg"/></div>
+      </ion-col> -->
       <ion-col>
         <div class="boardgameBtn" (click)="filterByCategory('boardgame');">
           <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-boardgame.svg"/></div>
       </ion-col>
+      <ion-col>
+        <div class="wargameBtn" (click)="filterByCategory('wargame');">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-wargame.svg"/></div>
+      </ion-col>      
       <ion-col>
         <div class="roleplayBtn" (click)="filterByCategory('roleplay');">
           <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-roleplay.svg"/></div>
@@ -28,9 +36,10 @@
       <ion-avatar slot="start">
         <img src="../../../assets/icon/category-{{item.category}}.svg" />  
       </ion-avatar>      
-      <ion-label class="{{ item.category }}">
-        <h2> {{ item.name }} </h2> 
-        <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>  
+      <ion-label class="{{ item.category }}">        
+        <h2> {{ item.name }} </h2>
+        <ion-note *ngIf="item.line"> {{ item.line }} </ion-note> <ion-note *ngIf="item.edition"> {{ item.edition }}  {{ "LIBRARY.Edition" | translate }} </ion-note> 
+        <!-- <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>   -->
         <p class="author" *ngIf="item.author"> {{ item.author }} </p>
         <ion-note *ngIf="item.lended?.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
         <ion-note *ngIf="item.outOfLend" color="danger"> {{ "LIBRARY.out_of_lend" | translate }} </ion-note>

@@ -38,11 +38,24 @@ export class UserService {
   }
 
   // FUNCTIONS
-  // getUserById
+  // getUserById()
   getUserById(id: string) {
     GlobalService.devlog(`userService: getUserById(${id})`);
     const userDocRef = doc(this.db, `users/${id}`);
-    return docData(userDocRef, { idField: 'id' });
+    return docData(userDocRef, { idField: 'id' }) as Observable<UserDetails>;
+  }
+
+  // isUserAdmin()
+  async isUserAdmin(id: string) {
+    const resPromise = new Promise<boolean>
+    ((resolve) => {
+      const res = this.getUserById(id);
+      res.subscribe((user) => {
+        if (user.role === 'admin') { resolve(true); }
+        else { resolve(false); }
+      });
+    });
+    return resPromise;
   }
 }
 

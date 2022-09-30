@@ -43,4 +43,29 @@ export class GlobalService {
     await alert.present();
 
   };
+
+  // ShowAlertWithQuestion()
+  showAlertWithQuestion =
+   async (headerKey: string, messageKey: string, okKey: string = 'ok', cancelKey: string = 'cancel') => {
+    GlobalService.devlog('globalService: showAlertWithQuestion()');
+
+    let bReturn: boolean;
+
+    const header: string  = this.translate.instant(headerKey);
+    const message: string = this.translate.instant(messageKey);
+    const ok: string      = this.translate.instant(okKey);
+    const cancel: string  = this.translate.instant(cancelKey);
+
+    const alertCtrl: AlertController = new AlertController();
+    const alert = await alertCtrl.create({
+      header,
+      message,
+      buttons: [
+        {text: ok, role: 'confirm', handler: () => bReturn = true },
+        {text: cancel, role: 'cancel', handler: () => bReturn = false }]
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+    return bReturn;
+  };
 }

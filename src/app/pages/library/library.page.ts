@@ -4,7 +4,8 @@ import { Component,
 import { GlobalService  } from 'src/app/services/global.service';
 import { LibraryService } from 'src/app/services/library.service';
 import { AuthService    } from 'src/app/services/auth.service';
-import { LibraryItem } from 'src/app/interfaces/LibraryItem';
+import { LibraryItem    } from 'src/app/interfaces/LibraryItem';
+
 // CLASS
 @Component({
   selector: 'app-library',
@@ -18,7 +19,8 @@ export class LibraryPage implements OnInit {
   // CONSTRUCTOR
   constructor(
     private libraryService: LibraryService,
-    private authService: AuthService ) {
+    private authService: AuthService,
+    private globalService: GlobalService ) {
     GlobalService.devlog('library: constructor()');
   }
 
@@ -28,11 +30,14 @@ export class LibraryPage implements OnInit {
   // NGONINIT
   ngOnInit() {
     GlobalService.devlog('library: ngOnInit()');
+    this.filterByCategory('boardgame');
   }
 
   // FUNCTIONS
-  lendItem(libraryItem: LibraryItem) {
+  async lendItem(libraryItem: LibraryItem) {
     GlobalService.devlog('library: lendItem()');
+    const isSure = await this.globalService.showAlertWithQuestion('LIBRARY.lend_item','LIBRARY.lend_item_question');
+    if ( !isSure ) {return;}
     this.libraryService.lendItem(libraryItem, this.authService.userId, this.authService.displayName);
   }
 

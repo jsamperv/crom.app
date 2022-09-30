@@ -46,18 +46,14 @@ export class CreateLibraryItemPage implements OnInit {
     // Inicialitzem Form Group
     this.fgLibraryItem =
       this.fb.group({
-        //selectorVerdures:['', [Validators.required]],
+        line: [''],
         name: [,[Validators.required]],
+        edition: [''],
         author: [''],
         category: [,[Validators.required]],
         outOfLend: [false],
         donatedBy: ['']
     });
-
-    // recupereu valors BBDD
-    // this.llistatVerdures = [{id:"broquil"}, {id:"ceba"}, {id:"pebrot"}];
-    // doneu valor al fg
-    // this.fgFormulariExemple.get("selectorVerdures").setValue("ceba"); // segons el valor que poseu us inicialitzarà el selector
 
   }
 
@@ -83,7 +79,12 @@ export class CreateLibraryItemPage implements OnInit {
       name: this.name.value.trim(), category: this.category.value, lended: {status: false},
       outOfLend: this.fgLibraryItem.get('outOfLend').value};
 
-    if (this.fgLibraryItem.get('author').value.trim() !== '')    { newLibraryItem.author = this.fgLibraryItem.get('author').value.trim(); }
+    if (this.fgLibraryItem.get('line').value.trim() !== '')
+      { newLibraryItem.line = this.fgLibraryItem.get('line').value.trim(); }
+    if (this.fgLibraryItem.get('edition').value.trim() !== '')
+      { newLibraryItem.edition = this.fgLibraryItem.get('edition').value.trim(); }
+    if (this.fgLibraryItem.get('author').value.trim() !== '')
+      { newLibraryItem.author = this.fgLibraryItem.get('author').value.trim(); }
     if (this.fgLibraryItem.get('donatedBy').value.trim() !== '')
       { newLibraryItem.donatedBy = this.fgLibraryItem.get('donatedBy').value.trim(); }
 

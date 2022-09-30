@@ -18,7 +18,10 @@
     "return": "Retorna",
     "lend": "Presta",
     "out_of_lend": "Exclòs de prèstec.",
-    "lended_since": "En prèstec des del"
+    "lended_since": "En prèstec des del",
+    "Edition": "Edició",
+    "lend_item": "Presta ítem",
+    "lend_item_question": "N'estàs segur que et vols endur aquest item?"
   },
   "LIBRARY_ITEM_CATEGORY": {
     "boardgame": "Joc de taula",
@@ -65,5 +68,6 @@
   },
   "error": "Error",
   "ok": "d'acord",
-  "version": "versió"
+  "version": "versió",
+  "cancel": "cancel·la"
 }

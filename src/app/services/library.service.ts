@@ -1,18 +1,17 @@
 // IMPORTS
-import { Injectable } from '@angular/core';
+import { Injectable              } from '@angular/core';
 import { Firestore,
          collection,
          collectionData,
          CollectionReference,
          doc, updateDoc, addDoc,
-         query } from '@angular/fire/firestore';
-// import { doc } from '@firebase/Firestore';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
-import { GlobalService } from './global.service';
-import { LibraryItem } from '../interfaces/LibraryItem';
-import { orderBy } from 'firebase/firestore';
-import { FirebaseError               } from 'firebase/app';
+         query                   } from '@angular/fire/firestore';
+import { Observable              } from 'rxjs';
+import { map                     } from 'rxjs/operators';
+import { GlobalService           } from './global.service';
+import { LibraryItem             } from '../interfaces/LibraryItem';
+import { orderBy                 } from 'firebase/firestore';
+import { FirebaseError           } from 'firebase/app';
 
 // CLASS
 @Injectable({

@@ -69,4 +69,12 @@ In app.component.ts:
   }
 ```
 
+## Firebase hosting and progressive webapp
 
+To setup a firebase hosting you have to do next steps (assuming we have firebase):  
+1. `firebase init hosting`  
+· chosing public directory: www  
+· single web-application: Yes  
+· auto-build: No
+2. `ionic build --prod`
+3. `firebase deploy --only hosting` 

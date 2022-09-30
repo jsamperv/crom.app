@@ -13,23 +13,24 @@
   
   <form [formGroup]="libraryItem" (submit)="this.createLibraryItem()">
     <ion-list>
-      <!-- <ion-item>
-        <ion-label slot="start"><h2>verdures!</h2></ion-label>
-        <ion-select formControlName="selectorVerdures" interface="popover" slot="end">
-          <ion-select-option *ngFor="let verdura of this.getLlistatVerdures" value="{{ verdura.id }}">
-            {{ verdura.id.toString() }} | translate }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item> -->
+      <ion-item>
+        <ion-label> Línia </ion-label>
+        <ion-input placeholder="" formControlName="line"></ion-input>        
+      </ion-item> 
       <ion-item>
         <ion-label> Nom </ion-label>
-        <ion-input placeholder="Escriu un nom" formControlName="name"></ion-input>
+        <ion-input placeholder="Escriu el nom" formControlName="name"></ion-input>
         <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors"> Camp necessari. </ion-note>      
       </ion-item>      
+      <ion-item>
+        <ion-label> Edició </ion-label>
+        <ion-input placeholder="" formControlName="edition"></ion-input>        
+      </ion-item> 
       <ion-item>        
         <ion-label> Categoria </ion-label>
         <ion-select formControlName="category" interface="popover">
         <ion-select-option>boardgame</ion-select-option>
+        <ion-select-option>wargame</ion-select-option>
         <ion-select-option>roleplay</ion-select-option>
         <ion-select-option>book</ion-select-option>
         </ion-select>
@@ -50,6 +51,6 @@
     </ion-list>
     <ion-button type="submit" expand="block" clickable> Crea Item </ion-button>    
   </form>
-  <ion-text class="ion-text-center" *ngIf="updatedChanges"> <p>Item creat!</p> </ion-text>      
+  <ion-text class="ion-text-center" *ngIf="updatedChanges"> <p>Item {{name.value}} creat!</p> </ion-text>      
 
 </ion-content>

@@ -18,7 +18,10 @@
     "return": "Devuelve",
     "lend": "Presta",
     "out_of_lend": "Fuera de préstamo.",
-    "lended_since": "En préstamo desde el"
+    "lended_since": "En préstamo desde el",
+    "Edition": "Edición",
+    "lend_item": "Presta ítem",
+    "lend_item_question": "Estás seguro que te quieres llevar este item?"    
   },
   "LIBRARY_ITEM_CATEGORY": {
     "boardgame": "Juego de mesa",
@@ -65,5 +68,6 @@
   },
   "error": "Error",
   "ok": "de acuerdo",
-  "version": "versión"
+  "version": "versión",
+  "cancel": "cancela"
 }

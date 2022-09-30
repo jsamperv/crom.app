@@ -53,6 +53,8 @@ export class MorePage implements OnInit {
         // while i dont save language i wont load it
       });
 
+    // this.bIsAdmin = await this.userService.isUserAdmin(this.authService.userId);
+
     await loading.dismiss();
 
   }
