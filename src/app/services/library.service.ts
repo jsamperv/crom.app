@@ -6,8 +6,12 @@ import { Firestore,
          CollectionReference,
          doc, updateDoc, addDoc,
          query                   } from '@angular/fire/firestore';
-import { Observable              } from 'rxjs';
+import { Observable,
+         of,
+                                 } from 'rxjs';
 import { map                     } from 'rxjs/operators';
+import { delay,
+                                 } from 'rxjs/internal/operators';
 import { GlobalService           } from './global.service';
 import { LibraryItem             } from '../interfaces/LibraryItem';
 import { orderBy                 } from 'firebase/firestore';
@@ -23,14 +27,22 @@ export class LibraryService {
   private libraryItem$: Observable<LibraryItem[]>;
   private libraryItem$Unfiltered: Observable<LibraryItem[]>;
   private libraryCollection: CollectionReference;
+  private isMock = true;
+  // private libraryItem$filteredByCategory:  Observable<LibraryItem[]>;;
 
   // CONSTRUCTOR
   constructor(private db: Firestore) {
     GlobalService.devlog('libraryService: contructor()');
-    this.libraryCollection = collection(db, 'library');
-    const q =  query(this.libraryCollection, orderBy('name'));
-    this.libraryItem$ = collectionData(q, {idField: 'id'}) as  Observable<LibraryItem[]>;
-    this.libraryItem$Unfiltered = this.libraryItem$;
+    if (this.isMock) { this.libraryItem$Unfiltered = this.getDelayedMockData();}
+    else {
+      this.libraryCollection = collection(db, 'library');
+      const q =  query(this.libraryCollection, orderBy('name'));
+      this.libraryItem$Unfiltered = collectionData(q, {idField: 'id'}) as  Observable<LibraryItem[]>;
+    }
+
+    this.libraryItem$           = this.libraryItem$Unfiltered;
+    // this.libraryItem$filteredByCategory = this.libraryItem$;
+
     // NO BORRAR ...
     // this.libraryItem$= this.libraryItem$.pipe(
     //   map<LibraryItem[],LibraryItem[]>((data)=>{data.map(d=>{d.name=d.name;}); return data;}));
@@ -74,9 +86,22 @@ export class LibraryService {
 
   // filterByCategory()
   filterByCategory(category: string) {
-    GlobalService.devlog(`libraryService: filterByCategory()`);
+    GlobalService.devlog(`libraryService: filterByCategory(${category})`);
     this.libraryItem$ = this.libraryItem$Unfiltered;
     this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.category === category)));
+    // this.libraryItem$filteredByCategory = this.libraryItem$;
+  }
+
+  // filterBySearchBar
+  filterBySearchBar(filterString: string) {
+    GlobalService.devlog(`libraryService: filterBySearchBar()`);
+    // Results from search are NOT filtered by category.
+    this.libraryItem$ =
+      this.libraryItem$Unfiltered.pipe(
+        map(item => item.filter(c =>
+           (c.name.toLowerCase().indexOf(filterString.toLowerCase())>=0 ||
+            c.line?.toLowerCase().indexOf(filterString.toLowerCase())>=0
+           ))));
   }
 
   // createLibraryItem();
@@ -91,4 +116,9 @@ export class LibraryService {
   }
 
   // AUXILIAR FUNCTIONS
+  // getDelayedMockData()
+  getDelayedMockData() {
+    //return from(GlobalService.libraryItemsMock).pipe(concatMap(item => of(item).pipe(delay(1000))));
+    return of(GlobalService.libraryItemsMock).pipe(delay(2000));
+  }
 }

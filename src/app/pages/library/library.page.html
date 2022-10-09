@@ -1,55 +1,86 @@
 <ion-header>
   <ion-toolbar color="primary">    
     <ion-icon name="book" slot="start" style="padding-left:14px;"></ion-icon>
-    <ion-title>{{ "LIBRARY.library" | translate }}</ion-title>
+    <ion-title>{{ "LIBRARY.library" | translate }}</ion-title>    
   </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-searchbar placeholder="{{ 'LIBRARY.search_placeholder' | translate }}"
+                   [debounce]="1500" (ionChange)="handleSearchBarChange($any($event))" #username>
+    </ion-searchbar>        
+  </ion-toolbar>  
 </ion-header>
 
-<ion-content fullscreen>
-  <ion-grid>
+<ion-content>
+  
+  <ion-grid *ngIf="!isSearchBarActive">
     <ion-row>
-      <!-- <ion-col let....>
-        <div class="{{category}}Btn" (click)="filterByCategory('{{category}}');">
+      <ion-col *ngFor="let category of categories">
+        <div class="{{category}}Btn" (click)="filterByCategory(category);">
           <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-{{category}}.svg"/></div>
-      </ion-col> -->
-      <ion-col>
-        <div class="boardgameBtn" (click)="filterByCategory('boardgame');">
-          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-boardgame.svg"/></div>
-      </ion-col>
-      <ion-col>
-        <div class="wargameBtn" (click)="filterByCategory('wargame');">
-          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-wargame.svg"/></div>
-      </ion-col>      
-      <ion-col>
-        <div class="roleplayBtn" (click)="filterByCategory('roleplay');">
-          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-roleplay.svg"/></div>
-      </ion-col>
-      <ion-col>
-        <div class="bookBtn"  (click)="filterByCategory('book');">
-          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-book.svg"/></div>
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <ion-list>
-    <ion-item *ngFor="let item of getLibraryService.getLibraryItem$ | async" 
-      [color]="this.getItemsColor(item.lended.status)">
-      <ion-avatar slot="start">
-        <img src="../../../assets/icon/category-{{item.category}}.svg" />  
-      </ion-avatar>      
-      <ion-label class="{{ item.category }}">        
-        <h2> {{ item.name }} </h2>
-        <ion-note *ngIf="item.line"> {{ item.line }} </ion-note> <ion-note *ngIf="item.edition"> {{ item.edition }}  {{ "LIBRARY.Edition" | translate }} </ion-note> 
-        <!-- <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>   -->
-        <p class="author" *ngIf="item.author"> {{ item.author }} </p>
-        <ion-note *ngIf="item.lended?.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
-        <ion-note *ngIf="item.outOfLend" color="danger"> {{ "LIBRARY.out_of_lend" | translate }} </ion-note>
-        <!-- <p> {{ item.lended.userId }} </p> --> 
-        <!-- <p> {{ item.id }} </p> -->
-    </ion-label>
-    <ion-button fill="solid" color="secondary" (click)="this.lendItem(item);" 
-                *ngIf="!item.lended?.status && !item.outOfLend" slot="end"> {{ "LIBRARY.lend" | translate }} </ion-button>
-    <ion-button fill="solid" color="secondary" (click)="this.returnItem(item);" 
-                *ngIf="canIReturnItem(item.lended?.status, item.lended.userId)" slot="end"> {{ "LIBRARY.return" | translate }} </ion-button>
-    </ion-item>
+    <ng-container *ngIf="getLibraryService.getLibraryItem$ | async; let items">   
+      {{showLoading(false)}}          
+      <ng-container *ngIf="items?.length > 0; else emptyLibraryTemplate">        
+        <ion-item *ngFor="let item of items" 
+          [color]="this.getItemsColor(item.lended.status)">          
+          <ion-avatar slot="start">
+            <img src="../../../assets/icon/category-{{item.category}}.svg" />  
+          </ion-avatar>      
+          <ion-label class="{{ item.category }}">        
+            <h2> {{ item.name }} </h2>
+            <ion-note *ngIf="item.line"> {{ item.line }} </ion-note> <ion-note *ngIf="item.edition"> {{ item.edition }}  {{ "LIBRARY.Edition" | translate }} </ion-note> 
+            <!-- <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>   -->
+            <p class="author" *ngIf="item.author"> {{ item.author }} </p>
+            <ion-note *ngIf="item.lended?.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
+            <ion-note *ngIf="item.outOfLend" color="danger"> {{ "LIBRARY.out_of_lend" | translate }} </ion-note>
+            <!-- <p> {{ item.lended.userId }} </p> --> 
+            <!-- <p> {{ item.id }} </p> -->
+          </ion-label>          
+          <ion-button fill="solid" color="secondary" (click)="this.lendItem(item);" 
+                    *ngIf="!item.lended?.status && !item.outOfLend" slot="end"> {{ "LIBRARY.lend" | translate }} </ion-button>
+          <ion-button fill="solid" color="secondary" (click)="this.returnItem(item);" 
+                    *ngIf="canIReturnItem(item.lended?.status, item.lended.userId)" slot="end"> {{ "LIBRARY.return" | translate }} </ion-button>    
+        </ion-item>
+      </ng-container>                     
+    </ng-container>
   </ion-list>
+  
+  <ng-template #emptyLibraryTemplate>
+    <div style="width: 65%; margin: auto; margin-top: 30px;">
+      <ion-img src="../../../assets/icon/pifia.svg"></ion-img>
+    </div>    
+  </ng-template>
+
+  <ng-template #skeletonListTemplate>
+    <ion-list>
+      <ion-item *ngFor="let item of [1, 2, 3, 4, 5]">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label class="skeleton">           
+          <h2><ion-skeleton-text style="width: 100%" animated></ion-skeleton-text></h2>        
+          <ion-note><ion-skeleton-text style="width: 40%" animated></ion-skeleton-text></ion-note>
+        </ion-label>        
+      </ion-item>
+    </ion-list>
+    {{showLoading(true)}}
+  </ng-template>
+
+  <ng-template #spinnerTemplate>
+    <div style="width: 100%; margin: auto; margin-top: 30px; text-align: center;">      
+      <ion-spinner name="lines-sharp"></ion-spinner>
+    </div>
+    {{showLoading(true)}}
+  </ng-template>
+
 </ion-content>
+
+<footer><ion-progress-bar color="secondary" type="indeterminate" #ionPB></ion-progress-bar></footer>
+
+
+
+

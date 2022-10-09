@@ -1,0 +1,74 @@
+{
+  "LOGIN": {
+    "invalid_email": "imeil inbalit.",
+    "min_length_passw": "La cuntrasenia a da tani com a minim 6 craters.",
+    "doesnt_remember_passw": "as ublidat la cuntrasenia?",
+    "reset_it": "Rainisialitsal",
+    "doesnt_have_account": "Ancara no tens conta?",
+    "register": "Anragistrat",
+    "privacy_policy": "Pulitica da privadesa",
+    "login_error": "Arror da inisiar",
+    "user_not_found": "Osuari no trubat.",
+    "incorrect_passw": "Cuntrasenia incurreta.",
+    "ok": "dacort",
+    "unable_to_load_user_settings": "No san pugut caragar las prafarensias d'osurai."
+  },
+  "LIBRARY": {
+    "library": "Blibluteca",
+    "return": "Ratorna",
+    "lend": "Presta",
+    "out_of_lend": "Esclos da prestac.",
+    "lended_since": "An prestac des dal",
+    "Edition": "Adició",
+    "lend_item": "Presta aixos",
+    "lend_item_question": "astas sagu ca vols aixos?",
+    "search_placeholder":"Ravusca"
+  },
+  "LIBRARY_ITEM_CATEGORY": {
+    "boardgame": "Ioc da taula",
+    "roleplay": "Ioc da rol",
+    "book": "Llibra"
+  },
+  "TABS": {
+    "library": "Blibluteca",
+    "more": "Mes"
+  },
+  "RESET_PASSW": {
+    "reset_passw_howto": "Intrudueis imeil par rainisiar la cuntrasenia; ravisa al teu curreu",
+    "invalid_email": "imeil inbalit.",
+    "reset_passw": "Rainisia la cuntrasenia",
+    "return_to_login": "torna al login",
+    "reset_passw_begins": "Rainisialisasio cumansada",
+    "reset_passw_sent": "Imeil anviat; Ravisa al teu curreu",
+    "reset_passw_error": "Arror an la rainisialisasio dala cuntrasenia",
+    "user_not_found": "Osuari no trubat",
+    "ok": "dacort"
+  },
+  "MORE": {
+    "more": "Mes upsions",
+    "user_profile": "Parfil d'Osuari",
+    "user_settings": "Prafarensias",
+    "language": "Idiome",
+    "close_sesion": "Tancá sassió"
+  },
+  "USER_PROFILE": {
+    "type_your_name": "Ascriu al teu nom",
+    "my_profile": "Al meu parfil",
+    "user_profile_howto": "Aqet es al teu parfil d'osuari, pots actualisar calsavol dals campos (o tots).",
+    "update_user_profile": "Actualisa al meu parfil",
+    "type_new_password": "Ascriu una nova cuntrasenia",
+    "invalid_email": "Imeil invalit.",
+    "min_length_passw": "La cuntrasenia a da tani com a minim 6 craters.",
+    "display_name_length_spaces_error": "Al nom a da tanir com a minim un cràter",
+    "type_your_email": "Ascriu un nou imeil",
+    "email_updated": "Al Imeil a sigut actualisat",
+    "password_updated": "La cuntrasenia a sigut actualisada.",
+    "display_name_updated": "Al Nom a sigut actualisat.",
+    "requires_recent_login": "Fa mol tems da lultim inisi, auries da sortir i turna a antra",
+    "error": "Arror"
+  },
+  "error": "Arror",
+  "ok": "Dacort",
+  "version": "Varsió",
+  "cancel": "Aansela"
+}

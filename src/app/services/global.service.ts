@@ -3,11 +3,23 @@ import { Injectable        } from '@angular/core';
 import { environment       } from 'src/environments/environment';
 import { TranslateService  } from '@ngx-translate/core';
 import { AlertController   } from '@ionic/angular';
+import { LibraryItem       } from '../interfaces/LibraryItem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
+
+  // MOCK
+  public static libraryItemsMock: LibraryItem[] =
+  [
+    {id:'1', name: 'joc1', category:'boardgame', lended:{status:false}, outOfLend: false},
+    {id:'2', name: 'joc2', category:'wargame'  , lended:{status:false}, outOfLend: false},
+    {id:'3', name: 'joc3', category:'roleplay' , lended:{status:false}, outOfLend: false},
+    {id:'4', name: 'joc4', category:'book'     , lended:{status:false}, outOfLend: false},
+    {id:'5', name: 'xoc5', category:'book'     , lended:{status:false}, outOfLend: false, line: 'liniaJ'},
+
+  ];
 
    // CONSTRUCTOR
    constructor(
@@ -17,6 +29,7 @@ export class GlobalService {
 
   // VARIABLE
   get version() { return 0.1; };
+  get categories() { return ['boardgame', 'wargame', 'roleplay', 'book'];};
 
   // FUNCTIONS
   // devlog()
@@ -62,7 +75,8 @@ export class GlobalService {
       message,
       buttons: [
         {text: ok, role: 'confirm', handler: () => bReturn = true },
-        {text: cancel, role: 'cancel', handler: () => bReturn = false }]
+        {text: cancel, role: 'cancel', handler: () => bReturn = false }],
+
     });
     await alert.present();
     await alert.onDidDismiss();

@@ -18,10 +18,11 @@
     "return": "Retorna",
     "lend": "Presta",
     "out_of_lend": "Exclòs de prèstec.",
-    "lended_since": "En prèstec des del",
+    "lended_since": "Des del",
     "Edition": "Edició",
     "lend_item": "Presta ítem",
-    "lend_item_question": "N'estàs segur que et vols endur aquest item?"
+    "lend_item_question": "N'estàs segur que et vols endur aquest item?",
+    "search_placeholder": "Cerca"
   },
   "LIBRARY_ITEM_CATEGORY": {
     "boardgame": "Joc de taula",

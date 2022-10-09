@@ -1,10 +1,14 @@
 // IMPORTS
 import { Component,
-         OnInit         } from '@angular/core';
-import { GlobalService  } from 'src/app/services/global.service';
-import { LibraryService } from 'src/app/services/library.service';
-import { AuthService    } from 'src/app/services/auth.service';
-import { LibraryItem    } from 'src/app/interfaces/LibraryItem';
+         OnInit,
+         ViewChild             } from '@angular/core';
+import { GlobalService         } from 'src/app/services/global.service';
+import { LibraryService        } from 'src/app/services/library.service';
+import { AuthService           } from 'src/app/services/auth.service';
+import { LibraryItem           } from 'src/app/interfaces/LibraryItem';
+import { SearchbarCustomEvent,
+         IonProgressBar        } from '@ionic/angular';
+
 
 // CLASS
 @Component({
@@ -15,6 +19,8 @@ import { LibraryItem    } from 'src/app/interfaces/LibraryItem';
 export class LibraryPage implements OnInit {
 
   // VARIABLES
+  @ViewChild('ionPB') elemPB: IonProgressBar;
+  private bIsSearchBarActive: boolean;
 
   // CONSTRUCTOR
   constructor(
@@ -26,14 +32,18 @@ export class LibraryPage implements OnInit {
 
   // PROPERTIES
   get getLibraryService() { return this.libraryService; }
+  get isSearchBarActive() { return this.bIsSearchBarActive; }
+  get categories()        { return this.globalService.categories; }
 
   // NGONINIT
   ngOnInit() {
     GlobalService.devlog('library: ngOnInit()');
-    this.filterByCategory('boardgame');
+    // this.filterByCategory('boardgame');
+    this.bIsSearchBarActive = false;
   }
 
   // FUNCTIONS
+  // lendItem()
   async lendItem(libraryItem: LibraryItem) {
     GlobalService.devlog('library: lendItem()');
     const isSure = await this.globalService.showAlertWithQuestion('LIBRARY.lend_item','LIBRARY.lend_item_question');
@@ -41,10 +51,32 @@ export class LibraryPage implements OnInit {
     this.libraryService.lendItem(libraryItem, this.authService.userId, this.authService.displayName);
   }
 
+  // returnItem()
   returnItem(libraryItem: LibraryItem) {
     GlobalService.devlog('library: returnItem()');
     this.libraryService.returnItem(libraryItem);
   }
+
+  // handleSearchBarChange()
+  handleSearchBarChange(e: SearchbarCustomEvent) {
+    GlobalService.devlog('library: handleSearchBarChange()');
+    GlobalService.devlog(`  SearchBar Value: ${e.detail.value.toString()}`);
+
+    this.bIsSearchBarActive = true;
+    this.showLoading(true);
+
+    if (e.detail.value.trim().length === 0) {
+      this.bIsSearchBarActive = false;
+    }
+
+    this.libraryService.filterBySearchBar(e.detail.value);
+  }
+
+  // filterByCategory()
+  filterByCategory(category: string) {
+    this.showLoading(true);
+    this.libraryService.filterByCategory(category); }
+
 
   // AUXILIAR FUNCTIONS
   getItemsColor(isLended: boolean=false): string { if (isLended) { return 'warning'; } return ''; }
@@ -52,5 +84,13 @@ export class LibraryPage implements OnInit {
     if (isLended && userId === this.authService.userId) { return true; }
     return false;
   }
-  filterByCategory(category: string) { this.libraryService.filterByCategory(category); }
+  showLoading(bShow: boolean) {
+    GlobalService.devlog(`libraryPage: showLoading(${bShow})`);
+    if (!bShow) {
+      this.elemPB.type = 'determinate';
+      this.elemPB.value = 0;
+      return;
+    }
+    this.elemPB.type = 'indeterminate';
+  }
 }
