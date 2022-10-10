@@ -27,7 +27,7 @@ export class LibraryService {
   private libraryItem$: Observable<LibraryItem[]>;
   private libraryItem$Unfiltered: Observable<LibraryItem[]>;
   private libraryCollection: CollectionReference;
-  private isMock = true;
+  private isMock = false;
   // private libraryItem$filteredByCategory:  Observable<LibraryItem[]>;;
 
   // CONSTRUCTOR

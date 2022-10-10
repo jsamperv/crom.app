@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'create-library-item',
     loadChildren: () => import('../create-library-item/create-library-item.module').then( m => m.CreateLibraryItemPageModule)
   },
+  {
+    path: 'register-user',
+    loadChildren: () => import('../register-user/register-user.module').then( m => m.RegisterUserPageModule)
+  },
 ];
 
 @NgModule({

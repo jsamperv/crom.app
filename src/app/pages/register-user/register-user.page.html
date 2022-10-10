@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">      
+    <ion-title> </ion-title>    
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/tabs/tab2']">
+        <ion-icon name="arrow-back"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>  
+</ion-header>
+
+<ion-content class="ion-padding">  
+  <span class="" style="text-align: center; display: block; margin-bottom: 10px;">
+    Lamentablement després de crear l'usuari o usuaris que calguin, quan surtis de la pàgina estaràs loginat com aquest. Enlloc de fer-te logout automàtic t'ho deixo així per si n'has de fer més d'un i ja sortiràs quan tornis al menú anterior.
+  </span>
+  
+  <form [formGroup]="userCred" (submit)="this.registerUser()">
+    <ion-list>
+      <ion-item>
+        <ion-icon slot="start" name="mail-outline" slot="start"> </ion-icon>      
+        <ion-input type="email" placeholder="{{ 'USER_PROFILE.type_your_email' | translate }}" formControlName="email"></ion-input>
+        <ion-note slot="error" *ngIf="(email.dirty || email.touched) && email.errors"> Email invàlid </ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="lock-open-outline" slot="start"></ion-icon>
+        <ion-input type="email" placeholder="{{ 'USER_PROFILE.type_new_password' | translate }}" formControlName="password"></ion-input>
+        <ion-note slot="error" *ngIf="(password.dirty || password.touched) && password.errors">{{ "USER_PROFILE.min_length_passw" | translate }}</ion-note>      
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-icon name="person-outline" slot="start"></ion-icon>      
+        <ion-input type="name" placeholder="{{ 'USER_PROFILE.type_your_name' | translate }}" formControlName="name"></ion-input>      
+        <ion-note slot="error" *ngIf="(name.dirty || name.touched) && name.errors"> Format del nom: 'Xxxxx Yyyyy' </ion-note>      
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block" clickable> Registra Usuari </ion-button>    
+  </form>
+  <ion-text class="ion-text-center" *ngIf="updatedChanges.done"> <p>Item {{updatedChanges.name}} creat!</p> </ion-text>         
+    
+</ion-content>

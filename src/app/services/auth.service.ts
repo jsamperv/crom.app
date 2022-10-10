@@ -1,6 +1,7 @@
 // IMPORTS
 import { Injectable                  } from '@angular/core';
 import { Auth,
+         createUserWithEmailAndPassword,
          signInWithEmailAndPassword,
          sendPasswordResetEmail,
          signOut,
@@ -81,6 +82,17 @@ export class AuthService {
      GlobalService.devlog('auth.service: updatePassword()');
      try {
       const res = await updatePassword(this.auth.currentUser, newPassword.toString());
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+  // register()
+  async register(arg: { email: string; password: string }) {
+    try {
+      const user = await createUserWithEmailAndPassword(this.auth, arg.email, arg.password);
+      return user;
     } catch (e) {
       GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
       throw e;

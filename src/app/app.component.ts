@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   // NGONINIT
   ngOnInit() {
     this.translate.addLangs(['ca', 'es', 'bui']);
+    this.translate.use('ca');
   }
 
   // FUNCTIONS

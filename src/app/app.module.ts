@@ -36,7 +36,6 @@ export function createTranslateLoader(http: HttpClient) {
             , provideAuth(() => getAuth())
             , HttpClientModule
             , TranslateModule.forRoot({
-              defaultLanguage: 'ca',
               loader: {
                 provide: TranslateLoader,
                 useFactory: createTranslateLoader,

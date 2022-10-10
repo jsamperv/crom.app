@@ -3,12 +3,12 @@ import { Component,
          OnInit            } from '@angular/core';
 import { AuthService       } from '../../services/auth.service';
 import { TranslateService  } from '@ngx-translate/core';
-import { UserService       } from 'src/app/services/user.service';
+import { UserService,
+         UserDetails       } from 'src/app/services/user.service';
 import { GlobalService     } from 'src/app/services/global.service';
 import { LoadingController } from '@ionic/angular';
+import { FirebaseError     } from 'firebase/app';
 
-// INTERFACE
-interface UserDetails {id: string; role: string; language: string};
 
 // CLASS
 @Component({
@@ -45,7 +45,7 @@ export class MorePage implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
 
-    const userSettings = this.userService.getUserById(this.authService.userId)
+    const userDetails = this.userService.getUserDetails(this.authService.userId)
       .subscribe((x: UserDetails)=> {
         GlobalService.devlog(`  User ${this.authService.userId} has ${x.role} role.`);
         this.bIsAdmin = (x.role === 'admin');
@@ -63,7 +63,22 @@ export class MorePage implements OnInit {
   // logout()
   logout(){ this.authService.logout(); window.location.assign('/logout');}
 
-  // AUXILIAR FUNCTIOONS
-  switchLang(lang: string)   { this.translate.use(lang); }
+  // AUXILIAR FUNCTIONS
+  async switchLang(lang: string) {
+
+    this.translate.use(lang);
+
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    try {
+      await this.userService.updateUserDetails(this.authService.userId, {language: lang} );
+      await loading.dismiss();
+    }
+    catch (e) {
+      await loading.dismiss();
+      this.globalService.showAlert('error', (e as FirebaseError).code);
+    }
+  }
 
 }

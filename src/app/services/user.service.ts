@@ -1,17 +1,16 @@
 // IMPORTS
-import { Injectable } from '@angular/core';
-import { Firestore,
-         collection,
+import { Injectable           } from '@angular/core';
+import { Firestore, setDoc,
+         collection, updateDoc,
          collectionData,
          CollectionReference,
-         query, doc, docData } from '@angular/fire/firestore';
-// import { doc, getDoc } from '@firebase/Firestore';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { GlobalService } from './global.service';
-import { LibraryItem } from '../interfaces/LibraryItem';
+         query, doc, docData, } from '@angular/fire/firestore';
+import { FirebaseError        } from 'firebase/app';
+import { Observable           } from 'rxjs';
+import { GlobalService        } from './global.service';
 
-interface UserDetails {id: string; role: string; language: string};
+// INTERFACES
+export interface UserDetails {id: string; role: string; language: string; name: string};
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +38,7 @@ export class UserService {
 
   // FUNCTIONS
   // getUserById()
-  getUserById(id: string) {
+  getUserDetails(id: string) {
     GlobalService.devlog(`userService: getUserById(${id})`);
     const userDocRef = doc(this.db, `users/${id}`);
     return docData(userDocRef, { idField: 'id' }) as Observable<UserDetails>;
@@ -47,9 +46,10 @@ export class UserService {
 
   // isUserAdmin()
   async isUserAdmin(id: string) {
+    GlobalService.devlog('userService: isUserAdmin()');
     const resPromise = new Promise<boolean>
     ((resolve) => {
-      const res = this.getUserById(id);
+      const res = this.getUserDetails(id);
       res.subscribe((user) => {
         if (user.role === 'admin') { resolve(true); }
         else { resolve(false); }
@@ -57,6 +57,31 @@ export class UserService {
     });
     return resPromise;
   }
+
+  // addUserDetails()
+  async addUserDetails(userDetails: UserDetails) {
+    GlobalService.devlog('userService: createUser()');
+    try {
+      await setDoc(doc(this.db, 'users', userDetails.id),
+        {role: userDetails.role, language: userDetails.language, name: userDetails.name});
+      //await addDoc(this.usersCollection, userDetails);
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+  // updateUserDetails()
+  async updateUserDetails(userId: string, details: any) {
+    const userDetailsDocumentReference = doc(this.db,`users/${userId}`);
+    try {
+      return await updateDoc(userDetailsDocumentReference, details);
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
 }
 
 
