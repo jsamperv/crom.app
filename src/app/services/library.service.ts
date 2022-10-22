@@ -27,13 +27,13 @@ export class LibraryService {
   private libraryItem$: Observable<LibraryItem[]>;
   private libraryItem$Unfiltered: Observable<LibraryItem[]>;
   private libraryCollection: CollectionReference;
-  private isMock = false;
   // private libraryItem$filteredByCategory:  Observable<LibraryItem[]>;;
 
   // CONSTRUCTOR
-  constructor(private db: Firestore) {
+  constructor(private db: Firestore,
+              private globalService: GlobalService) {
     GlobalService.devlog('libraryService: contructor()');
-    if (this.isMock) { this.libraryItem$Unfiltered = this.getDelayedMockData();}
+    if (globalService.isMock) { this.libraryItem$Unfiltered = this.getDelayedMockData();}
     else {
       this.libraryCollection = collection(db, 'library');
       const q =  query(this.libraryCollection, orderBy('name'));
@@ -92,6 +92,13 @@ export class LibraryService {
     // this.libraryItem$filteredByCategory = this.libraryItem$;
   }
 
+  // filterByLended()
+  filterByLended() {
+    GlobalService.devlog(`libraryService: filterByLended()`);
+    this.libraryItem$ = this.libraryItem$Unfiltered;
+    this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.lended.status === true)));
+  }
+
   // filterBySearchBar
   filterBySearchBar(filterString: string) {
     GlobalService.devlog(`libraryService: filterBySearchBar()`);
@@ -119,6 +126,6 @@ export class LibraryService {
   // getDelayedMockData()
   getDelayedMockData() {
     //return from(GlobalService.libraryItemsMock).pipe(concatMap(item => of(item).pipe(delay(1000))));
-    return of(GlobalService.libraryItemsMock).pipe(delay(2000));
+    return of(GlobalService.libraryItemsMock).pipe(delay(1500));
   }
 }

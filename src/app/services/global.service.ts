@@ -17,7 +17,7 @@ export class GlobalService {
     {id:'2', name: 'joc2', category:'wargame'  , lended:{status:false}, outOfLend: false},
     {id:'3', name: 'joc3', category:'roleplay' , lended:{status:false}, outOfLend: false},
     {id:'4', name: 'joc4', category:'book'     , lended:{status:false}, outOfLend: false},
-    {id:'5', name: 'xoc5', category:'book'     , lended:{status:false}, outOfLend: false, line: 'liniaJ'},
+    {id:'5', name: 'llibre5', category:'book'  , lended:{status:false}, outOfLend: false, line: 'liniaJ'},
 
   ];
 
@@ -30,6 +30,12 @@ export class GlobalService {
   // VARIABLE
   get version() { return 0.1; };
   get categories() { return ['boardgame', 'wargame', 'roleplay', 'book'];};
+  get isMock() {
+    if (!environment.production) {
+      return true;
+    }
+    return false;
+  }
 
   // FUNCTIONS
   // devlog()
@@ -74,9 +80,9 @@ export class GlobalService {
       header,
       message,
       buttons: [
+        {text: cancel, role: 'cancel', handler: () => bReturn = false },
         {text: ok, role: 'confirm', handler: () => bReturn = true },
-        {text: cancel, role: 'cancel', handler: () => bReturn = false }],
-
+      ]
     });
     await alert.present();
     await alert.onDidDismiss();

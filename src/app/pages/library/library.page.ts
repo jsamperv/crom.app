@@ -8,6 +8,7 @@ import { AuthService           } from 'src/app/services/auth.service';
 import { LibraryItem           } from 'src/app/interfaces/LibraryItem';
 import { SearchbarCustomEvent,
          IonProgressBar        } from '@ionic/angular';
+import { UserService           } from 'src/app/services/user.service';
 
 
 // CLASS
@@ -24,6 +25,7 @@ export class LibraryPage implements OnInit {
 
   // CONSTRUCTOR
   constructor(
+    private userService: UserService,
     private libraryService: LibraryService,
     private authService: AuthService,
     private globalService: GlobalService ) {
@@ -32,6 +34,7 @@ export class LibraryPage implements OnInit {
 
   // PROPERTIES
   get getLibraryService() { return this.libraryService; }
+  get getUserService()    { return this.userService; }
   get isSearchBarActive() { return this.bIsSearchBarActive; }
   get categories()        { return this.globalService.categories; }
 
@@ -74,8 +77,17 @@ export class LibraryPage implements OnInit {
 
   // filterByCategory()
   filterByCategory(category: string) {
+    GlobalService.devlog('library: filterByCategory()');
     this.showLoading(true);
-    this.libraryService.filterByCategory(category); }
+    this.libraryService.filterByCategory(category);
+  }
+
+  // filterByLended()
+  filterByLended() {
+    GlobalService.devlog('library: filterByLended()');
+    this.showLoading(true);
+    this.libraryService.filterByLended();
+  }
 
 
   // AUXILIAR FUNCTIONS

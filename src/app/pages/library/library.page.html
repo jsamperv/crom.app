@@ -2,11 +2,14 @@
   <ion-toolbar color="primary">    
     <ion-icon name="book" slot="start" style="padding-left:14px;"></ion-icon>
     <ion-title>{{ "LIBRARY.library" | translate }}</ion-title>    
+    <ion-button *ngIf="!isSearchBarActive" style="padding-right: 5px;" color="secondary" size="" slot="end" (click)="filterByLended()">
+       {{ "LIBRARY.lended" | translate }}
+     </ion-button>
   </ion-toolbar>
   <ion-toolbar color="secondary">
     <ion-searchbar placeholder="{{ 'LIBRARY.search_placeholder' | translate }}"
                    [debounce]="1500" (ionChange)="handleSearchBarChange($any($event))" #username>
-    </ion-searchbar>        
+    </ion-searchbar>            
   </ion-toolbar>  
 </ion-header>
 
@@ -35,7 +38,8 @@
             <ion-note *ngIf="item.line"> {{ item.line }} </ion-note> <ion-note *ngIf="item.edition"> {{ item.edition }}  {{ "LIBRARY.Edition" | translate }} </ion-note> 
             <!-- <h3> {{ "LIBRARY_ITEM_CATEGORY."+item.category | translate }} </h3>   -->
             <p class="author" *ngIf="item.author"> {{ item.author }} </p>
-            <ion-note *ngIf="item.lended?.status"> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </ion-note>
+            <ion-note *ngIf="item.lended?.status"><p> {{ "LIBRARY.lended_since" | translate }} {{ item.lended.since | date }} </p></ion-note>
+            <ion-note *ngIf="item.lended?.status"><p> {{ "LIBRARY.lended_to" | translate }} {{ item.lended.displayName }} </p></ion-note>
             <ion-note *ngIf="item.outOfLend" color="danger"> {{ "LIBRARY.out_of_lend" | translate }} </ion-note>
             <!-- <p> {{ item.lended.userId }} </p> --> 
             <!-- <p> {{ item.id }} </p> -->
