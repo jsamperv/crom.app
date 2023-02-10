@@ -2,12 +2,18 @@
   <ion-toolbar color="primary">      
     <ion-title> </ion-title>    
     <ion-buttons slot="start">
-      <ion-button [routerLink]="['/tabs/tab2']">
+      <ion-button *ngIf="this.isCreateMode; else backToLibrary" [routerLink]="['/tabs/tab2']">
         <ion-icon name="arrow-back"></ion-icon> 
       </ion-button>
     </ion-buttons>
   </ion-toolbar>  
 </ion-header>
+
+<ng-template #backToLibrary>
+  <ion-button [routerLink]="['/tabs/tab1']">
+    <ion-icon name="arrow-back"></ion-icon> 
+  </ion-button>  
+</ng-template>
 
 <ion-content class="ion-padding">  
   
@@ -44,13 +50,39 @@
         <ion-label> Donat per </ion-label>
         <ion-input placeholder="" formControlName="donatedBy"></ion-input>  
       </ion-item>
-      <ion-item class="ion-margin-bottom">
+      <ion-item  class="ion-margin-bottom">
         <ion-label> Fora de Prèstec </ion-label>
         <ion-toggle placeholder="" formControlName="outOfLend"></ion-toggle>        
       </ion-item>                    
+      <ion-item>
+        <ion-label> Id. a la BGG: {{libraryItem.get('bggId').value}} </ion-label>
+      </ion-item>
+      <ion-item>        
+        <ion-searchbar placeholder="Busca per nom a la BGG..."
+          [debounce]="500" (ionChange)="handleSearchBarChange($any($event))" #username>
+        </ion-searchbar>        
+      </ion-item>
+      <ion-item class="ion-margin-bottom">        
+        <ion-label> Joc (id) a la BGG </ion-label>
+        <ion-select formControlName="bggId" interface="action-sheet">
+          <ion-select-option *ngFor="let item of bggGames" value="{{item.id}}"> ({{item.yearpublished?.value}}) {{item.name.value}} </ion-select-option>
+        </ion-select> 
+      </ion-item>
     </ion-list>
     <ion-button type="submit" expand="block" clickable> Crea Item </ion-button>    
   </form>
-  <ion-text class="ion-text-center" *ngIf="updatedChanges"> <p>Item {{name.value}} creat!</p> </ion-text>      
-
+  <ion-text class="ion-text-center" *ngIf="updatedChanges"> <p>Item {{name.value}} creat!</p> </ion-text>        
+  <!-- LIST OF GAMES:
+  <ng-container *ngIf="getLibraryService.getLibraryItem$ | async; let items">
+    <ng-container *ngIf="items?.length > 0; else emptyLibraryTemplate">        
+      <ion-item *ngFor="let item of items" >        
+        <ion-note> {{ item.name }} {{ item.id }} </ion-note>                
+      </ion-item>
+    </ng-container>
+  </ng-container>
+  <ng-template #emptyLibraryTemplate>
+    <div style="width: 65%; margin: auto; margin-top: 30px;">
+      <ion-img src="../../../assets/icon/pifia.svg"></ion-img>
+    </div>    
+  </ng-template> -->
 </ion-content>

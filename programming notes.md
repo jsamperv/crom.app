@@ -78,3 +78,15 @@ To setup a firebase hosting you have to do next steps (assuming we have firebase
 · auto-build: No
 2. `ionic build --prod`
 3. `firebase deploy --only hosting` 
+
+## BGG XMLAPI and fast-xml-parser
+To setup only:
+1. `$ npm install fast-xml-parser`
+2. To resolve Buffer error:  
+· `npm i --save-dev @types/node`  
+· In tsconfig.json and tsconfig.app.json add:  
+```
+"compilerOptions": {    
+    "types": ["node"]
+},
+```

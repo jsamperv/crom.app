@@ -4,6 +4,7 @@ import { environment       } from 'src/environments/environment';
 import { TranslateService  } from '@ngx-translate/core';
 import { AlertController   } from '@ionic/angular';
 import { LibraryItem       } from '../interfaces/LibraryItem';
+import { Category          } from '../interfaces/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,17 @@ export class GlobalService {
 
   // VARIABLE
   get version() { return 0.1; };
-  get categories() { return ['boardgame', 'wargame', 'roleplay', 'book'];};
+  get categories(): Category[] {
+    return [
+      {name:'boardgame', lendingDays: 7},
+      {name: 'wargame', lendingDays: 7},
+      {name: 'roleplay', lendingDays: 30},
+      {name: 'book', lendingDays: 30}
+    ];
+  };
   get isMock() {
     if (!environment.production) {
-      return true;
+      return false;
     }
     return false;
   }

@@ -1,13 +1,20 @@
 // IMPORTS
-import { Component, OnInit } from '@angular/core';
+import { Component, Input,
+         OnInit            } from '@angular/core';
 import { FormBuilder,
          FormGroup,
          Validators        } from '@angular/forms';
 import { GlobalService     } from 'src/app/services/global.service';
 import { LibraryItem       } from 'src/app/interfaces/LibraryItem';
 import { LibraryService    } from 'src/app/services/library.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController,
+         SearchbarCustomEvent
+                           } from '@ionic/angular';
 import { FirebaseError     } from 'firebase/app';
+import { BggService        } from 'src/app/services/bgg.service';
+import { ActivatedRoute    } from '@angular/router';
+
+// TYPES
 
 // CLASS
 @Component({
@@ -19,31 +26,36 @@ export class CreateLibraryItemPage implements OnInit {
 
   // VARIABLES
   private fgLibraryItem: FormGroup;
-  private bUpdatedChanges: boolean;
-  // private llistatVerdures: {id:String}[];
+  private bUpdatedChanges: boolean; // {boolean, string}
+  private lBggGames = []; // {id: number; name: string; yearpublished: number}[] = [];
+  private sId: string;
+  private libraryItemToUpdate: LibraryItem = {name: '', lended:{status:false}, category: '', outOfLend:false};
 
   // CONSTRUCTOR
   constructor(private fb: FormBuilder,
     private libraryService: LibraryService,
     private loadingCtrl: LoadingController,
-    private globalService: GlobalService) {
+    private globalService: GlobalService,
+    private bggService: BggService,
+    private aRoute: ActivatedRoute ) {
     GlobalService.devlog('createLibraryItem: constructor()');
   }
 
   // PROPERTIES
-  get libraryItem()    { return this.fgLibraryItem; }
-  get name()           { return this.fgLibraryItem.get('name'); }
-  get category()       { return this.fgLibraryItem.get('category'); }
-  get updatedChanges() { return this.bUpdatedChanges; }
+  get libraryItem()       { return this.fgLibraryItem; }
+  get name()              { return this.fgLibraryItem.get('name'); }
+  get category()          { return this.fgLibraryItem.get('category'); }
+  get updatedChanges()    { return this.bUpdatedChanges; }
+  get getLibraryService() { return this.libraryService; }
+  get bggGames()          {
+    // return [{name:'a'},{name:'b'}]; }
+    return this.lBggGames; }
+  get isCreateMode()      { return this.sId ? false: true; }
 
-  // get getLlistatVerdures() { return this.llistatVerdures }
-
-  ngOnInit() {
+  // NGONINIT
+  async ngOnInit() {
     GlobalService.devlog('createLibraryItem: ngOnInit()');
 
-    this.bUpdatedChanges = false;
-
-    // Inicialitzem Form Group
     this.fgLibraryItem =
       this.fb.group({
         line: [''],
@@ -52,18 +64,64 @@ export class CreateLibraryItemPage implements OnInit {
         author: [''],
         category: [,[Validators.required]],
         outOfLend: [false],
-        donatedBy: ['']
+        donatedBy: [''],
+        bggId: ['']
     });
+
+    // if Id NOT null we are in EDIT mode
+    this.sId = this.aRoute.snapshot.paramMap.get('id');
+    GlobalService.devlog('   There is an item to edit? ' + this.sId);
+
+    if (this.sId !== null) {
+      this.libraryItemToUpdate = await this.libraryService.getLibraryItemById(this.sId);
+      GlobalService.devlog(`   Item to Update: ${JSON.stringify(this.libraryItemToUpdate)}`);
+      this.fgLibraryItem.get('line').setValue(this.libraryItemToUpdate.line?? '');
+      this.fgLibraryItem.get('name').setValue(this.libraryItemToUpdate.name);
+      this.fgLibraryItem.get('edition').setValue(this.libraryItemToUpdate.edition?? '');
+      this.fgLibraryItem.get('author').setValue(this.libraryItemToUpdate.author?? '');
+      this.fgLibraryItem.get('category').setValue(this.libraryItemToUpdate.category);
+      this.fgLibraryItem.get('outOfLend').setValue(this.libraryItemToUpdate.outOfLend?? '');
+      this.fgLibraryItem.get('donatedBy').setValue(this.libraryItemToUpdate.donatedBy?? '');
+      this.fgLibraryItem.get('bggId').setValue(this.libraryItemToUpdate.bggId?? '');
+    }
+
+    this.bUpdatedChanges = false;
 
   }
 
   // FUNCTIONS
+  // handleSearchBarChange()
+  async handleSearchBarChange(e: SearchbarCustomEvent) {
+    GlobalService.devlog('createLibraryItem: handleSearchBarChange()');
+    GlobalService.devlog(`  SearchBar Value: ${e.detail.value.toString()}`);
+
+    try {
+      const bggSearchResponse = await this.bggService.search(e.detail.value.toString());
+
+      if (Array.isArray(bggSearchResponse)) {
+        this.lBggGames = bggSearchResponse;
+      } else {
+        this.lBggGames = [];
+        if (bggSearchResponse!==undefined) {
+          this.lBggGames.push(bggSearchResponse);
+        }
+      }
+
+      GlobalService.devlog(bggSearchResponse);
+
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
   // createLibraryItem()
   async createLibraryItem() {
     GlobalService.devlog('createLibraryItem: createLibraryItem()');
     GlobalService.devlog(`
-      name: ${this.name.value}\n      author: ${this.fgLibraryItem.get('author').value}\n      category: ${this.category.value}
+      line: ${this.fgLibraryItem.get('line').value}\n      name: ${this.name.value}
+      author: ${this.fgLibraryItem.get('author').value}\n      category: ${this.category.value}
       outOfLend: ${this.fgLibraryItem.get('outOfLend').value}\n      donatedBy: ${this.fgLibraryItem.get('donatedBy').value}
+      bggId: ${this.fgLibraryItem.get('bggId').value}
       `);
 
     this.bUpdatedChanges = false;
@@ -76,7 +134,9 @@ export class CreateLibraryItemPage implements OnInit {
     }
 
     const newLibraryItem: LibraryItem = {
-      name: this.name.value.trim(), category: this.category.value, lended: {status: false},
+      name: this.name.value.trim(),
+      category: this.category.value,
+      lended: this.libraryItemToUpdate.lended,
       outOfLend: this.fgLibraryItem.get('outOfLend').value};
 
     if (this.fgLibraryItem.get('line').value.trim() !== '')
@@ -87,11 +147,21 @@ export class CreateLibraryItemPage implements OnInit {
       { newLibraryItem.author = this.fgLibraryItem.get('author').value.trim(); }
     if (this.fgLibraryItem.get('donatedBy').value.trim() !== '')
       { newLibraryItem.donatedBy = this.fgLibraryItem.get('donatedBy').value.trim(); }
+      if (this.fgLibraryItem.get('bggId').value.trim() !== '')
+      { newLibraryItem.bggId = this.fgLibraryItem.get('bggId').value.trim(); }
 
     const loading = await this.loadingCtrl.create();
     await loading.present();
     try {
-      await this.libraryService.createLibraryItem(newLibraryItem);
+      // UPDATE
+      if (this.sId !== null) {
+        newLibraryItem.id = this.sId;
+        this.libraryService.updateLibraryItem(newLibraryItem);
+      }
+      // CREATE
+      else {
+        await this.libraryService.createLibraryItem(newLibraryItem);
+      }
       await loading.dismiss();
       this.bUpdatedChanges = true;
     } catch (e) {

@@ -5,6 +5,9 @@
     <ion-button *ngIf="!isSearchBarActive" style="padding-right: 5px;" color="secondary" size="" slot="end" (click)="filterByLended()">
        {{ "LIBRARY.lended" | translate }}
      </ion-button>
+     <!-- <ion-button [routerLink]="'create-library-item'">
+      <ion-icon name="alert-circle-outline"></ion-icon>  
+    </ion-button> -->
   </ion-toolbar>
   <ion-toolbar color="secondary">
     <ion-searchbar placeholder="{{ 'LIBRARY.search_placeholder' | translate }}"
@@ -18,8 +21,8 @@
   <ion-grid *ngIf="!isSearchBarActive">
     <ion-row>
       <ion-col *ngFor="let category of categories">
-        <div class="{{category}}Btn" (click)="filterByCategory(category);">
-          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-{{category}}.svg"/></div>
+        <div class="{{category.name}}Btn" (click)="filterByCategory(category);">
+          <img style="height: 30px;width: 100%;" src="../../../assets/icon/category-{{category.name}}.svg"/></div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -29,7 +32,7 @@
       {{showLoading(false)}}          
       <ng-container *ngIf="items?.length > 0; else emptyLibraryTemplate">        
         <ion-item *ngFor="let item of items" 
-          [color]="this.getItemsColor(item.lended.status)">          
+          [color]="this.getItemsColor(item)">          
           <ion-avatar slot="start">
             <img src="../../../assets/icon/category-{{item.category}}.svg" />  
           </ion-avatar>      
@@ -44,10 +47,16 @@
             <!-- <p> {{ item.lended.userId }} </p> --> 
             <!-- <p> {{ item.id }} </p> -->
           </ion-label>          
-          <ion-button fill="solid" color="secondary" (click)="this.lendItem(item);" 
+          <ion-buttons>
+            <ion-button fill="solid" color="secondary" (click)="this.bggLink(item.bggId)" *ngIf="item.bggId" slot="end"> BGG </ion-button>
+            <ion-button fill="solid" color="secondary" (click)="this.lendItem(item);" 
                     *ngIf="!item.lended?.status && !item.outOfLend" slot="end"> {{ "LIBRARY.lend" | translate }} </ion-button>
-          <ion-button fill="solid" color="secondary" (click)="this.returnItem(item);" 
+            <ion-button fill="solid" color="secondary" (click)="this.returnItem(item);" 
                     *ngIf="canIReturnItem(item.lended?.status, item.lended.userId)" slot="end"> {{ "LIBRARY.return" | translate }} </ion-button>    
+            <ion-button fill="solid" color="warning" (click)="this.editItem(item);"  *ngIf="userIsAdmin" slot="end">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </ion-item>
       </ng-container>                     
     </ng-container>

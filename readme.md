@@ -5,7 +5,7 @@ Aplication for CROM rol and games club. Initially a library of items where an
 authenticated user can see as a list, lend one and take it home. (TAB1)  
 
 Also, the user can edit profile: name, email and password; and settings: language  
-(es, ca). (TAB2)
+(es, ca, bui). (TAB2)
 
 My intention with this application is to integrate my knowledge of javascript  
 technologies into an simple and useful app for a non-profit org.
@@ -38,11 +38,19 @@ shows the app.
 ## Project Status 
 The user login is implemented, the minimum application is implemented.  
 A basic library item creation page for admins is implemented.  
+A basic user creation page for admins is implemented.
 Basic filtering for category is implemented.  
+Search bar with automatic filtering view is implemented.
+An items lended view is implemented.
+This would be my 0.1 version. (2022/10/22)
+
 There is an online accessible version of [**crom-app**](https://crom-app.web.app).
 
 ## Future improvements
-- Search bar with automatic filtering view.
+- Change color when lending is out of time (DONE), with additional email or local  
+notification sending.
+- adding cross relation with BoardGameGeek (DONE).
+- Feature, lending rooms of the club.
 - Applying reservations.
 - Aplying more visualization filters (free, reserved, ...) to the list of items. 
 - Aplying ordered lists (not only by name) to the list of items.
@@ -50,11 +58,10 @@ There is an online accessible version of [**crom-app**](https://crom-app.web.app
 - Lending stats.
 - User recomendations and scoring lists.
 - tag lists and filters.
-- CRUD inside library to easily edit items (admins).
+- CRUD inside library to easily edit items (admins) (DONE UPDATE).
 - An inventory of items that are in ALL the club?
 - No connection and possible firestore errors.
-- Whos lending the item in library view (admins).
-- Users CRUD inside the app (admins). Very low priority.
+- Users CRUD inside the app (admins).
 
 ## Sources && Inspiration
 [Node Javascript](https://nodejs.org)  

@@ -9,4 +9,5 @@ export interface LibraryItem {
     lended: {status: boolean; since?: number; userId?: string; displayName?: string };
     outOfLend: boolean;
     donatedBy?: string;
+    bggId?: number;
 }

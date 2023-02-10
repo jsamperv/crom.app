@@ -16,6 +16,7 @@ import { GlobalService           } from './global.service';
 import { LibraryItem             } from '../interfaces/LibraryItem';
 import { orderBy                 } from 'firebase/firestore';
 import { FirebaseError           } from 'firebase/app';
+import { Category                } from '../interfaces/Category';
 
 // CLASS
 @Injectable({
@@ -85,10 +86,10 @@ export class LibraryService {
   }
 
   // filterByCategory()
-  filterByCategory(category: string) {
+  filterByCategory(category: Category) {
     GlobalService.devlog(`libraryService: filterByCategory(${category})`);
     this.libraryItem$ = this.libraryItem$Unfiltered;
-    this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.category === category)));
+    this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.category === category.name)));
     // this.libraryItem$filteredByCategory = this.libraryItem$;
   }
 
@@ -120,6 +121,35 @@ export class LibraryService {
       GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
       throw e;
     }
+  }
+
+  // createLibraryItem();
+  async updateLibraryItem(updatedLibraryItem: LibraryItem) {
+    GlobalService.devlog(`libraryService: updateLibraryItem()`);
+    const libraryItemDocumentReference = doc(this.db,`library/${updatedLibraryItem.id}`);
+    try {
+      return updateDoc(libraryItemDocumentReference, { ...updatedLibraryItem });
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+
+  // getLibraryItemById()
+  async getLibraryItemById(sId: string) {
+    GlobalService.devlog(`libraryService: getLibraryItemById()`);
+    // return this.libraryItem$Unfiltered.pipe(map(item => item.filter(c=>c.id === sId)));
+    const resPromise = new Promise<LibraryItem>((resolve, reject) =>
+    {
+      const res = this.libraryItem$Unfiltered.pipe(map(item => item.filter(c=>c.id === sId)));
+
+      res.subscribe( resArray => {
+        resolve(resArray[0]);
+      });
+    });
+
+    return resPromise;
   }
 
   // AUXILIAR FUNCTIONS

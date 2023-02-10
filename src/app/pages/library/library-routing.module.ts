@@ -6,8 +6,12 @@ import { LibraryPage } from './library.page';
 const routes: Routes = [
   {
     path: '',
-    component: LibraryPage
-  }
+    component: LibraryPage,
+  },
+  {
+    path: 'create-library-item/:id',
+    loadChildren: () => import('../create-library-item/create-library-item.module').then( m => m.CreateLibraryItemPageModule)
+  },
 ];
 
 @NgModule({
