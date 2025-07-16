@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'register-user',
     loadChildren: () => import('../register-user/register-user.module').then( m => m.RegisterUserPageModule)
   },
+  {
+    path: 'items-bgglist',
+    loadChildren: () => import('../items-bgglist/items-bgglist.module').then( m => m.ItemsBGGListPageModule)
+  },
 ];
 
 @NgModule({

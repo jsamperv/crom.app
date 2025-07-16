@@ -5,6 +5,7 @@ import { Firestore,
          collectionData,
          CollectionReference,
          doc, updateDoc, addDoc,
+         deleteDoc,
          query                   } from '@angular/fire/firestore';
 import { Observable,
          of,
@@ -42,6 +43,9 @@ export class LibraryService {
     }
 
     this.libraryItem$           = this.libraryItem$Unfiltered;
+
+    // initial filter to show less results on screen
+    this.filterByCategory({name:'boardgame', lendingDays:0});
     // this.libraryItem$filteredByCategory = this.libraryItem$;
 
     // NO BORRAR ...
@@ -87,7 +91,7 @@ export class LibraryService {
 
   // filterByCategory()
   filterByCategory(category: Category) {
-    GlobalService.devlog(`libraryService: filterByCategory(${category})`);
+    GlobalService.devlog(`libraryService: filterByCategory(${JSON.stringify(category)})`);
     this.libraryItem$ = this.libraryItem$Unfiltered;
     this.libraryItem$ = this.libraryItem$.pipe(map(item => item.filter(c=>c.category === category.name)));
     // this.libraryItem$filteredByCategory = this.libraryItem$;
@@ -123,12 +127,24 @@ export class LibraryService {
     }
   }
 
-  // createLibraryItem();
+  // updateLibraryItem()
   async updateLibraryItem(updatedLibraryItem: LibraryItem) {
     GlobalService.devlog(`libraryService: updateLibraryItem()`);
     const libraryItemDocumentReference = doc(this.db,`library/${updatedLibraryItem.id}`);
     try {
       return updateDoc(libraryItemDocumentReference, { ...updatedLibraryItem });
+    } catch (e) {
+      GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
+      throw e;
+    }
+  }
+
+  // deleteLibraryItem()
+  async deleteLibraryItem(deletedLibraryItem: LibraryItem) {
+    GlobalService.devlog(`libraryService: deletedLibraryItem()`);
+    const libraryItemDocumentReference = doc(this.db,`library/${deletedLibraryItem.id}`);
+    try {
+      return deleteDoc(libraryItemDocumentReference);
     } catch (e) {
       GlobalService.devlog(`  e.code: ${e.code as FirebaseError}, e.name: ${e.name as FirebaseError}`);
       throw e;
@@ -143,6 +159,22 @@ export class LibraryService {
     const resPromise = new Promise<LibraryItem>((resolve, reject) =>
     {
       const res = this.libraryItem$Unfiltered.pipe(map(item => item.filter(c=>c.id === sId)));
+
+      res.subscribe( resArray => {
+        resolve(resArray[0]);
+      });
+    });
+
+    return resPromise;
+  }
+
+  // getLibraryItemByBggId()
+  async getLibraryItemByBggId(bggId: string) {
+    GlobalService.devlog(`libraryService: getLibraryItemByBggId()`);
+    // return this.libraryItem$Unfiltered.pipe(map(item => item.filter(c=>c.id === sId)));
+    const resPromise = new Promise<LibraryItem | undefined>((resolve, reject) =>
+    {
+      const res = this.libraryItem$Unfiltered.pipe(map(item => item.filter(c=>c.bggId === bggId)));
 
       res.subscribe( resArray => {
         resolve(resArray[0]);

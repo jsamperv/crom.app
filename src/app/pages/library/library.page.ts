@@ -134,5 +134,6 @@ export class LibraryPage implements OnInit {
     }
     this.elemPB.type = 'indeterminate';
   }
-  bggLink(id: any) { console.log(id); window.open('https://boardgamegeek.com/boardgame/'+ id.toString(),'_blank'); }
+  bggLink(id: any)
+    { window.open('https://boardgamegeek.com/boardgame/'+ id.toString(),'_blank'); }
 }

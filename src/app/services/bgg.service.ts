@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 // import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GlobalService } from './global.service';
-import { bggXmlApiClient, getBggSearch, BggSearchResponse} from 'bgg-xml-api-client';
+import { bggXmlApiClient, getBggSearch, BggSearchResponse, getBggCollection} from 'bgg-xml-api-client';
 
 
 // CLASS
@@ -44,9 +44,16 @@ export class BggService {
   // const { data } = await bggXmlApiClient.get('user', { name: 'Qrzy88' });
   // console.log(data.id); // displays: 1381959
   // let res:  [{id: number; name: string; yearPublished: number}];
-  console.log(await getBggSearch({query: searchQuery, type: 'boardgame'}));
+
   const { data } = await getBggSearch({query: searchQuery, type: 'boardgame'});
   return data.item;
+  }
 
+  // getUser()
+  async getUserCollection(username: string) {
+    GlobalService.devlog(`getUser(${username})`);
+
+    const {data} = await getBggCollection({username:'cromolesa'});
+    return data.item as any[];
   }
 }

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">      
+    <ion-title> </ion-title>    
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/tabs/tab2']">
+        <ion-icon name="arrow-back"></ion-icon> 
+      </ion-button>      
+    </ion-buttons>
+    <ion-label>total items: {{this.userCollection.length}} </ion-label>
+    <ion-buttons slot="end" >
+      <ion-button style="padding-right: 5px;" (click)="reloadUserCollection()">
+        <ion-icon name="refresh-outline"></ion-icon> 
+      </ion-button>
+  </ion-buttons>
+  </ion-toolbar>  
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ng-container *ngIf="this.userCollection ; let items; else spinnerTemplate">      
+      <ng-container *ngIf="items?.length > 0; else emptyLibraryTemplate">             
+        <ion-item *ngFor="let item of items" >             
+          <ion-label class="{{item.subtype}}">        
+            <h2> {{ item.name.text }} </h2>
+          </ion-label>        
+          <ion-buttons>
+            <ion-button fill="solid" color="secondary" (click)="this.bggLink(item.objectid)" *ngIf="item.objectid" slot="end">
+              BGG </ion-button>
+            <ion-button fill="solid" color="warning" (click)="this.createLibraryItem(item.objectid, item.name.text, item.subtype);" slot="end">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+  <ng-template #emptyLibraryTemplate>
+    <!-- <div style="width: 65%; margin: auto; margin-top: 30px;">
+      <ion-img src="../../../assets/icon/pifia.svg"></ion-img>
+    </div>     -->
+  </ng-template>
+  <ng-template #spinnerTemplate>
+    <!-- <div style="width: 100%; margin: auto; margin-top: 30px; text-align: center;">      
+      <ion-spinner name="lines-sharp"></ion-spinner>
+    </div>     -->
+  </ng-template>
+</ion-content>

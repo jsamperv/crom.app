@@ -12,7 +12,8 @@ import { LoadingController,
                            } from '@ionic/angular';
 import { FirebaseError     } from 'firebase/app';
 import { BggService        } from 'src/app/services/bgg.service';
-import { ActivatedRoute    } from '@angular/router';
+import { ActivatedRoute,
+         Router            } from '@angular/router';
 
 // TYPES
 
@@ -37,8 +38,9 @@ export class CreateLibraryItemPage implements OnInit {
     private loadingCtrl: LoadingController,
     private globalService: GlobalService,
     private bggService: BggService,
-    private aRoute: ActivatedRoute ) {
-    GlobalService.devlog('createLibraryItem: constructor()');
+    private aRoute: ActivatedRoute,
+    private router: Router ) {
+      GlobalService.devlog('createLibraryItem: constructor()');
   }
 
   // PROPERTIES
@@ -139,6 +141,7 @@ export class CreateLibraryItemPage implements OnInit {
       lended: this.libraryItemToUpdate.lended,
       outOfLend: this.fgLibraryItem.get('outOfLend').value};
 
+    // when i edit there is a problem if i want to put value in blank (i cant).
     if (this.fgLibraryItem.get('line').value.trim() !== '')
       { newLibraryItem.line = this.fgLibraryItem.get('line').value.trim(); }
     if (this.fgLibraryItem.get('edition').value.trim() !== '')
@@ -157,6 +160,7 @@ export class CreateLibraryItemPage implements OnInit {
       if (this.sId !== null) {
         newLibraryItem.id = this.sId;
         this.libraryService.updateLibraryItem(newLibraryItem);
+        this.router.navigate(['tabs/tab1/']);
       }
       // CREATE
       else {
@@ -168,7 +172,12 @@ export class CreateLibraryItemPage implements OnInit {
       await loading.dismiss();
       this.globalService.showAlert('error', (e as FirebaseError).code);
     }
+  }
 
+  // deleteLibraryItem()
+  async deleteLibraryItem() {
+    this.libraryService.deleteLibraryItem(this.libraryItemToUpdate);
+    this.router.navigate(['tabs/tab1/']);
   }
 }
 

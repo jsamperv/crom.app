@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">      
     <ion-title> </ion-title>    
-    <ion-buttons slot="start">
-      <ion-button *ngIf="this.isCreateMode; else backToLibrary" [routerLink]="['/tabs/tab2']">
+    <ion-buttons slot="start" *ngIf="this.isCreateMode; else backToLibrary">
+      <ion-button  [routerLink]="['/tabs/tab2']">
         <ion-icon name="arrow-back"></ion-icon> 
       </ion-button>
     </ion-buttons>
@@ -10,9 +10,16 @@
 </ion-header>
 
 <ng-template #backToLibrary>
-  <ion-button [routerLink]="['/tabs/tab1']">
-    <ion-icon name="arrow-back"></ion-icon> 
-  </ion-button>  
+  <ion-buttons slot="start">
+    <ion-button [routerLink]="['/tabs/tab1']">
+      <ion-icon name="arrow-back"></ion-icon> 
+    </ion-button>
+  </ion-buttons>  
+  <ion-buttons slot="end" >
+    <ion-button style="padding-right: 5px;" (click)="deleteLibraryItem()">
+      <ion-icon name="trash-outline"></ion-icon> 
+    </ion-button>
+</ion-buttons>  
 </ng-template>
 
 <ion-content class="ion-padding">  
@@ -32,20 +39,20 @@
         <ion-label> Edició </ion-label>
         <ion-input placeholder="" formControlName="edition"></ion-input>        
       </ion-item> 
-      <ion-item>        
-        <ion-label> Categoria </ion-label>
-        <ion-select formControlName="category" interface="popover">
-        <ion-select-option>boardgame</ion-select-option>
-        <ion-select-option>wargame</ion-select-option>
-        <ion-select-option>roleplay</ion-select-option>
-        <ion-select-option>book</ion-select-option>
-        </ion-select>
-        <ion-note slot="error" *ngIf="(category.dirty || category.touched) && category.errors"> Camp necessari. </ion-note>      
-      </ion-item>      
+ 
       <ion-item>
         <ion-label> Autor </ion-label>
         <ion-input placeholder="" formControlName="author"></ion-input>  
-      </ion-item>      
+      </ion-item>      <ion-item>        
+        <ion-label> Categoria </ion-label>
+        <ion-select formControlName="category">
+        <ion-select-option value="boardgame">boardgame</ion-select-option>
+        <ion-select-option value="wargame">wargame</ion-select-option>
+        <ion-select-option value="roleplay">roleplay</ion-select-option>
+        <ion-select-option value="book">book</ion-select-option>
+        </ion-select>
+        <ion-note slot="error" *ngIf="(category.dirty || category.touched) && category.errors"> Camp necessari. </ion-note>      
+      </ion-item>           
       <ion-item>
         <ion-label> Donat per </ion-label>
         <ion-input placeholder="" formControlName="donatedBy"></ion-input>  
@@ -69,7 +76,8 @@
         </ion-select> 
       </ion-item>
     </ion-list>
-    <ion-button type="submit" expand="block" clickable> Crea Item </ion-button>    
+    <ion-button type="submit" expand="block" clickable *ngIf="this.isCreateMode;"> Crea Item </ion-button>    
+    <ion-button type="submit" expand="block" clickable *ngIf="!this.isCreateMode;"> Edita Item </ion-button>    
   </form>
   <ion-text class="ion-text-center" *ngIf="updatedChanges"> <p>Item {{name.value}} creat!</p> </ion-text>        
   <!-- LIST OF GAMES:
